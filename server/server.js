@@ -9,13 +9,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
 const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
-});
-
-app.get("/", (req, res) => {
-    res.send("Servidor del Quiz de Fútbol funcionando ⚽🔥");
 });
 
 app.post("/generar-preguntas", async (req, res) => {
@@ -93,13 +90,8 @@ No agregues texto antes ni después del JSON.
 
 }
 });
+const PORT = process.env.PORT || 3000;
 
-const PORT = 3000;
-
-app.listen(PORT, () => {
-
-    console.log(
-        `Servidor funcionando en http://localhost:${PORT}`
-    );
-
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Servidor funcionando en el puerto ${PORT}`);
 });
