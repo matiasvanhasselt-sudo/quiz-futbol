@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Fútbol</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- =====================================
+         MENÚ PRINCIPAL
+         ===================================== -->
+
+    <div id="menu">
+
+        <h1>
+            ⚽ QUIZ DE FÚTBOL
+        </h1>
+
+        <p>
+            Pon a prueba tus conocimientos
+        </p>
+
+
+        <button
+            onclick="mostrarConfiguracion()">
+
+            🎮 JUGAR
+
+        </button>
+
+
+        <button
+            onclick="mostrarCrearPregunta()">
+
+            ➕ CREAR PREGUNTA
+
+        </button>
+
+
+        <button
+            onclick="mostrarBanco()">
+
+            📚 BANCO DE PREGUNTAS
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         CONFIGURAR PARTIDA
+         ===================================== -->
+
+    <div
+        id="configuracion-partida"
+        style="display:none;">
+
+        <h1>
+            🎮 CONFIGURAR PARTIDA
+        </h1>
+
+
+        <label>
+            Categoría
+        </label>
+
+        <select id="config-categoria">
+
+            <option value="todos">
+                🔀 Todas
+            </option>
+
+            <option value="general">
+                ⚽ Fútbol general
+            </option>
+
+            <option value="futbol-chileno">
+                🇨🇱 Fútbol chileno
+            </option>
+
+            <option value="colo-colo">
+                ⚪⚫ Colo-Colo
+            </option>
+
+            <option value="universidad-de-chile">
+                🔵 Universidad de Chile
+            </option>
+
+            <option value="universidad-catolica">
+                🔵 Universidad Católica
+            </option>
+
+            <option value="internacional">
+                🌎 Fútbol internacional
+            </option>
+
+            <option value="libertadores">
+                🏆 Copa Libertadores
+            </option>
+
+            <option value="mundiales">
+                🌍 Mundiales
+            </option>
+
+            <option value="jugadores">
+                👤 Jugadores
+            </option>
+
+            <option value="historia">
+                📜 Historia del fútbol
+            </option>
+
+        </select>
+
+
+        <label>
+            Dificultad
+        </label>
+
+        <select id="config-dificultad">
+
+            <option value="todos">
+                🔀 Todas
+            </option>
+
+            <option value="facil">
+                🟢 Fácil
+            </option>
+
+            <option value="medio">
+                🟡 Medio
+            </option>
+
+            <option value="dificil">
+                🔴 Difícil
+            </option>
+
+        </select>
+
+
+        <label>
+            Tipo de pregunta
+        </label>
+
+        <select id="config-tipo">
+
+            <option value="todos">
+                🔀 Todos
+            </option>
+
+            <option value="4-opciones">
+                4 alternativas
+            </option>
+
+            <option value="verdadero-falso">
+                Verdadero / Falso
+            </option>
+
+        </select>
+
+
+        <label>
+            Modo de respuesta
+        </label>
+
+        <select id="config-modo">
+
+            <option value="automatico">
+                🔀 Automático
+            </option>
+
+            <option value="alternativas">
+                📝 Alternativas
+            </option>
+
+            <option value="oral">
+                🗣️ Respuesta oral
+            </option>
+
+        </select>
+
+
+        <label>
+            Cantidad de preguntas
+        </label>
+
+        <select id="config-cantidad">
+
+            <option value="5">
+                5 preguntas
+            </option>
+
+            <option value="10">
+                10 preguntas
+            </option>
+
+            <option value="15">
+                15 preguntas
+            </option>
+
+            <option value="20">
+                20 preguntas
+            </option>
+
+            <option value="todas">
+                Todas las disponibles
+            </option>
+
+        </select>
+
+
+        <button
+            onclick="iniciarPartidaConfigurada()">
+
+            🚀 COMENZAR
+
+        </button>
+
+
+        <button
+            onclick="volverMenu()">
+
+            ← VOLVER
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         QUIZ
+         ===================================== -->
+
+    <div
+        id="quiz"
+        style="display:none;">
+
+    </div>
+
+
+    <!-- =====================================
+         CREAR PREGUNTA
+         ===================================== -->
+
+    <div
+        id="crear-pregunta"
+        style="display:none;">
+
+        <h1>
+            ➕ CREAR PREGUNTA
+        </h1>
+
+
+        <label>
+            Tipo de pregunta
+        </label>
+
+        <select
+            id="tipo-pregunta"
+            onchange="cambiarTipoPregunta()">
+
+            <option value="4-opciones">
+                4 alternativas
+            </option>
+
+            <option value="verdadero-falso">
+                Verdadero / Falso
+            </option>
+
+            <option value="oral">
+    🗣️ Respuesta oral
+</option>
+
+        </select>
+
+
+        <label>
+            Categoría
+        </label>
+
+        <select id="categoria-pregunta">
+
+            <option value="general">
+                ⚽ Fútbol general
+            </option>
+
+            <option value="futbol-chileno">
+                🇨🇱 Fútbol chileno
+            </option>
+
+            <option value="colo-colo">
+                ⚪⚫ Colo-Colo
+            </option>
+
+            <option value="universidad-de-chile">
+                🔵 Universidad de Chile
+            </option>
+
+            <option value="universidad-catolica">
+                🔵 Universidad Católica
+            </option>
+
+            <option value="internacional">
+                🌎 Fútbol internacional
+            </option>
+
+            <option value="libertadores">
+                🏆 Copa Libertadores
+            </option>
+
+            <option value="mundiales">
+                🌍 Mundiales
+            </option>
+
+            <option value="jugadores">
+                👤 Jugadores
+            </option>
+
+            <option value="historia">
+                📜 Historia del fútbol
+            </option>
+
+        </select>
+
+
+        <label>
+            Dificultad
+        </label>
+
+        <select id="dificultad-pregunta">
+
+            <option value="facil">
+                🟢 Fácil
+            </option>
+
+            <option value="medio">
+                🟡 Medio
+            </option>
+
+            <option value="dificil">
+                🔴 Difícil
+            </option>
+
+        </select>
+
+
+        <label>
+            Pregunta
+        </label>
+
+        <textarea
+            id="texto-pregunta"
+            placeholder="Escribe la pregunta...">
+        </textarea>
+
+
+       <div id="opciones-container">
+
+    <label id="opcion1-label">
+        Alternativa 1
+    </label>
+
+    <input
+        id="opcion1"
+        type="text"
+        placeholder="Alternativa 1">
+
+
+    <label id="opcion2-label">
+        Alternativa 2
+    </label>
+
+    <input
+        id="opcion2"
+        type="text"
+        placeholder="Alternativa 2">
+
+
+    <label id="opcion3-label">
+        Alternativa 3
+    </label>
+
+    <input
+        id="opcion3"
+        type="text"
+        placeholder="Alternativa 3">
+
+
+    <label id="opcion4-label">
+        Alternativa 4
+    </label>
+
+    <input
+        id="opcion4"
+        type="text"
+        placeholder="Alternativa 4">
+
+</div>
+
+<div id="respuesta-oral-container" style="display:none;">
+
+    <label>
+        Respuesta correcta
+    </label>
+
+    <input
+        id="respuesta-oral"
+        type="text"
+        placeholder="Escribe la respuesta correcta">
+
+</div>
+      <div
+    id="respuesta-alternativas-container"
+    style="display:none;">
+
+    <label>
+        Respuesta correcta
+    </label>
+
+    <select id="respuesta-correcta">
+
+    </select>
+
+</div>
+        <label>
+    Justificación
+</label>
+        <textarea
+            id="justificacion"
+            placeholder="Explica por qué esta es la respuesta correcta...">
+        </textarea>
+
+
+        <button
+            id="guardar-pregunta-btn"
+            onclick="guardarPregunta()">
+
+            💾 GUARDAR PREGUNTA
+
+        </button>
+
+
+        <button
+            onclick="volverMenu()">
+
+            ← VOLVER AL MENÚ
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         BANCO DE PREGUNTAS
+         ===================================== -->
+
+    <div
+        id="banco-preguntas"
+        style="display:none;">
+
+        <h1>
+            📚 BANCO DE PREGUNTAS
+        </h1>
+
+
+        <input
+            id="buscar-preguntas"
+            type="text"
+            placeholder="🔎 Buscar pregunta..."
+            oninput="mostrarBancoPreguntas()">
+
+
+        <select
+            id="filtro-tipo"
+            onchange="mostrarBancoPreguntas()">
+
+           <option value="4-opciones">
+    4 alternativas
+</option>
+
+<option value="verdadero-falso">
+    Verdadero / Falso
+</option>
+
+<option value="oral">
+    🗣️ Respuesta oral
+</option>
+
+        </select>
+
+
+        <div id="lista-preguntas">
+
+        </div>
+
+
+        <button
+            onclick="volverMenu()">
+
+            ← VOLVER AL MENÚ
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+         ===================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

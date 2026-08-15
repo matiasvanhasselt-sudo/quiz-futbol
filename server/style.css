@@ -1,0 +1,997 @@
+/* ==========================================
+   RESET
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   CUERPO
+   ========================================== */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #263b32 0%,
+            #111713 45%,
+            #080b09 100%
+        );
+
+    color: #ffffff;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+
+    overflow-x: hidden;
+}
+
+
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
+
+.quiz-container {
+    width: 100%;
+    max-width: 760px;
+
+    background: rgba(25, 29, 27, 0.94);
+
+    padding: 45px;
+
+    border-radius: 28px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.55),
+        0 0 40px rgba(55, 180, 100, 0.05);
+
+    backdrop-filter: blur(12px);
+
+    animation: aparecer 0.45s ease;
+}
+
+
+/* ==========================================
+   ANIMACIÓN
+   ========================================== */
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ==========================================
+   TÍTULOS
+   ========================================== */
+
+h1 {
+    font-size: 42px;
+    font-weight: 900;
+
+    margin-bottom: 12px;
+
+    letter-spacing: -1px;
+}
+
+
+h2 {
+    font-size: 30px;
+
+    line-height: 1.35;
+
+    margin-bottom: 30px;
+}
+
+
+p {
+    font-size: 18px;
+
+    margin-bottom: 25px;
+
+    color: #b9c0bb;
+
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   BOTONES GENERALES
+   ========================================== */
+
+button {
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 16px 25px;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    background: #ffffff;
+
+    color: #111;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+
+    margin: 7px 0;
+}
+
+
+button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+button:active {
+    transform: scale(0.97);
+}
+
+
+/* ==========================================
+   BOTONES DEL MENÚ
+   ========================================== */
+
+#menu button {
+    width: 100%;
+
+    display: block;
+
+    margin: 14px 0;
+
+    padding: 18px;
+
+    font-size: 18px;
+}
+
+
+#menu button:first-of-type {
+    background: #ffffff;
+}
+
+
+#menu button:nth-of-type(2) {
+    background: #e9eee9;
+}
+
+
+#menu button:nth-of-type(3) {
+    background: #dce3de;
+}
+
+
+/* ==========================================
+   BOTONES SECUNDARIOS
+   ========================================== */
+
+.boton-secundario {
+    background: #252b28;
+
+    color: white;
+
+    border: 1px solid #3d4641;
+}
+
+
+.boton-secundario:hover {
+    background: #303833;
+}
+
+
+/* ==========================================
+   HEADER DEL QUIZ
+   ========================================== */
+
+.quiz-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    color: #aeb7b0;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   TIPO DE PREGUNTA
+   ========================================== */
+
+.tipo-pregunta {
+    display: inline-block;
+
+    background: #26352d;
+
+    color: #a9d3b5;
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    margin-bottom: 20px;
+
+    border: 1px solid #385342;
+}
+
+
+/* ==========================================
+   ALTERNATIVAS
+   ========================================== */
+
+.opciones {
+    display: grid;
+
+    gap: 13px;
+
+    margin-bottom: 25px;
+}
+
+
+.opcion {
+    width: 100%;
+
+    background: #222824;
+
+    color: white;
+
+    border: 2px solid #343c37;
+
+    text-align: left;
+
+    padding: 18px 20px;
+
+    border-radius: 15px;
+
+    font-size: 17px;
+
+    transition: all 0.2s ease;
+}
+
+
+.opcion:hover {
+    background: #2d352f;
+
+    border-color: #5b6b60;
+
+    transform: translateY(-2px);
+}
+
+
+.opcion.correcta {
+    background: #166534;
+
+    border-color: #22a052;
+
+    color: white;
+}
+
+
+.opcion.incorrecta {
+    background: #8f241f;
+
+    border-color: #c43b34;
+
+    color: white;
+}
+
+
+/* ==========================================
+   RESPUESTAS
+   ========================================== */
+
+.respuesta {
+    padding: 22px;
+
+    border-radius: 16px;
+
+    margin: 20px 0;
+
+    text-align: left;
+
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+
+.correcta-texto {
+    background: rgba(22, 128, 60, 0.15);
+}
+
+
+.incorrecta-texto {
+    background: rgba(179, 38, 30, 0.15);
+}
+
+
+.respuesta h3 {
+    margin-bottom: 10px;
+}
+
+
+.respuesta p {
+    font-size: 16px;
+
+    margin-bottom: 8px;
+
+    color: white;
+}
+
+
+/* ==========================================
+   BOTÓN SIGUIENTE
+   ========================================== */
+
+.siguiente-btn,
+#siguiente-btn {
+    margin-top: 10px;
+
+    background: white;
+
+    color: #111;
+
+    width: 100%;
+
+    padding: 17px;
+
+    font-size: 17px;
+}
+
+
+/* ==========================================
+   PUNTAJE FINAL
+   ========================================== */
+
+.puntaje-final {
+    font-size: 72px;
+
+    font-weight: 900;
+
+    margin: 25px 0;
+}
+
+
+/* ==========================================
+   MODO ORAL
+   ========================================== */
+
+.modo-voz {
+    background: #202722;
+
+    border: 1px solid #354139;
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    margin: 25px 0;
+}
+
+
+.modo-voz p {
+    margin-bottom: 10px;
+}
+
+
+.modo-oral {
+    background: #202722;
+
+    border: 1px solid #354139;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    margin: 25px 0;
+}
+
+
+.icono-oral {
+    font-size: 48px;
+
+    margin-bottom: 12px;
+}
+
+
+.modo-oral h3 {
+    margin-bottom: 10px;
+}
+
+
+.modo-oral p {
+    font-size: 16px;
+}
+
+
+/* ==========================================
+   VERDADERO / FALSO
+   ========================================== */
+
+.vf-respuesta {
+    margin-top: 25px;
+
+    background: #202722;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    border: 1px solid #354139;
+}
+
+
+.vf-respuesta h3 {
+    font-size: 25px;
+
+    margin-bottom: 15px;
+}
+
+
+.vf-respuesta p {
+    font-size: 17px;
+
+    line-height: 1.5;
+
+    color: #ddd;
+}
+
+
+/* ==========================================
+   ACERTASTE
+   ========================================== */
+
+.acertaste {
+    margin-top: 25px;
+
+    padding: 22px;
+
+    background: #202722;
+
+    border-radius: 18px;
+
+    border: 1px solid #354139;
+}
+
+
+.acertaste h3 {
+    margin-bottom: 15px;
+
+    font-size: 20px;
+}
+
+
+.acertaste-botones {
+    display: flex;
+
+    gap: 12px;
+
+    justify-content: center;
+}
+
+
+.acertaste-botones button {
+    min-width: 120px;
+}
+
+
+.acertaste-si {
+    background: #16803c;
+
+    color: white;
+}
+
+
+.acertaste-no {
+    background: #b3261e;
+
+    color: white;
+}
+
+
+/* ==========================================
+   FORMULARIO CREAR PREGUNTA
+   ========================================== */
+
+#crear-pregunta {
+    text-align: left;
+}
+
+
+#crear-pregunta h1 {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+#crear-pregunta label {
+    display: block;
+
+    margin-top: 18px;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    color: #cbd2cd;
+}
+
+
+#crear-pregunta input,
+#crear-pregunta textarea,
+#crear-pregunta select {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    border: 2px solid #343c37;
+
+    background: #202522;
+
+    color: white;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: border 0.2s ease;
+}
+
+
+#crear-pregunta input:focus,
+#crear-pregunta textarea:focus,
+#crear-pregunta select:focus {
+
+    border-color: #6c7d70;
+
+}
+
+
+#crear-pregunta textarea {
+
+    min-height: 110px;
+
+    resize: vertical;
+
+    font-family: Arial, sans-serif;
+}
+
+
+#crear-pregunta button {
+
+    width: 100%;
+
+    margin-top: 18px;
+}
+
+
+#opciones-container {
+    margin-top: 10px;
+}
+
+
+/* ==========================================
+   CONFIGURACIÓN
+   ========================================== */
+
+#configuracion-partida {
+    text-align: left;
+}
+
+
+#configuracion-partida h1 {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+#configuracion-partida label {
+    display: block;
+
+    margin-top: 18px;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    color: #cbd2cd;
+}
+
+
+#configuracion-partida select {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    border: 2px solid #343c37;
+
+    background: #202522;
+
+    color: white;
+
+    font-size: 16px;
+
+    outline: none;
+
+}
+
+
+#configuracion-partida button {
+
+    width: 100%;
+
+    margin-top: 18px;
+}
+
+
+/* ==========================================
+   BANCO DE PREGUNTAS
+   ========================================== */
+
+#banco-preguntas {
+    text-align: left;
+}
+
+
+#banco-preguntas h1 {
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+
+#buscar-preguntas,
+#filtro-tipo {
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin-bottom: 12px;
+
+    border-radius: 12px;
+
+    border: 2px solid #343c37;
+
+    background: #202522;
+
+    color: white;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+/* ==========================================
+   TARJETAS DEL BANCO
+   ========================================== */
+
+.tarjeta-pregunta {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    background: #202522;
+
+    border: 1px solid #343c37;
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    margin-top: 15px;
+
+    transition: transform 0.2s ease;
+}
+
+
+.tarjeta-pregunta:hover {
+
+    transform: translateY(-2px);
+
+    background: #252c27;
+}
+
+
+.tarjeta-pregunta h3 {
+
+    margin-top: 8px;
+
+    font-size: 18px;
+
+    line-height: 1.4;
+}
+
+
+.etiqueta-tipo {
+
+    display: inline-block;
+
+    background: #303a34;
+
+    color: #cbd5ce;
+
+    padding: 6px 10px;
+
+    border-radius: 15px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   BOTONES DEL BANCO
+   ========================================== */
+
+.acciones-pregunta {
+
+    display: flex;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+
+.editar-btn {
+
+    background: #39423c;
+
+    color: white;
+
+    padding: 10px 15px;
+}
+
+
+.editar-btn:hover {
+
+    background: #4a554d;
+}
+
+
+.eliminar-btn {
+
+    background: #8f241f;
+
+    color: white;
+
+    padding: 10px 15px;
+}
+
+
+.eliminar-btn:hover {
+
+    background: #b92e27;
+}
+
+
+.acciones-pregunta .eliminar-btn {
+
+    margin: 0;
+}
+
+
+/* ==========================================
+   SIN PREGUNTAS
+   ========================================== */
+
+.sin-preguntas {
+
+    text-align: center;
+
+    padding: 40px 10px;
+
+    color: #929b95;
+}
+
+
+/* ==========================================
+   RESPONSIVE — CELULAR
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    body {
+
+        padding: 12px;
+
+        align-items: flex-start;
+
+        padding-top: 20px;
+
+    }
+
+
+    .quiz-container {
+
+        padding: 25px 18px;
+
+        border-radius: 22px;
+
+        max-width: 100%;
+
+    }
+
+
+    h1 {
+
+        font-size: 30px;
+
+    }
+
+
+    h2 {
+
+        font-size: 24px;
+
+    }
+
+
+    p {
+
+        font-size: 16px;
+
+    }
+
+
+    button {
+
+        width: 100%;
+
+        font-size: 16px;
+
+        padding: 15px;
+
+    }
+
+
+    .quiz-header {
+
+        font-size: 13px;
+
+    }
+
+
+    .opcion {
+
+        padding: 16px;
+
+        font-size: 16px;
+
+    }
+
+
+    .puntaje-final {
+
+        font-size: 58px;
+
+    }
+
+
+    .tarjeta-pregunta {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .acciones-pregunta {
+
+        width: 100%;
+
+    }
+
+
+    .acciones-pregunta button {
+
+        flex: 1;
+
+    }
+
+
+    .acertaste-botones {
+
+        flex-direction: column;
+
+    }
+
+
+    .acertaste-botones button {
+
+        width: 100%;
+
+    }
+
+}
+
+
+/* ==========================================
+   CELULARES MUY PEQUEÑOS
+   ========================================== */
+
+@media (max-width: 380px) {
+
+    .quiz-container {
+
+        padding: 20px 14px;
+
+    }
+
+
+    h1 {
+
+        font-size: 27px;
+
+    }
+
+
+    h2 {
+
+        font-size: 21px;
+
+    }
+
+}
