@@ -995,3 +995,10 @@ button:active {
     }
 
 }
+.logo-dtf {
+    width: 220px;
+    max-width: 75%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px ;
+}
