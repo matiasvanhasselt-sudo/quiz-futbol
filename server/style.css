@@ -1,6 +1,10 @@
-/* ==========================================
+/* =========================================================
+   QUIZ FÚTBOL — DISEÑO MODERNO
+   ========================================================= */
+
+/* =========================================================
    RESET
-   ========================================== */
+   ========================================================= */
 
 * {
     margin: 0;
@@ -8,213 +12,290 @@
     box-sizing: border-box;
 }
 
-
-/* ==========================================
-   CUERPO
-   ========================================== */
+html {
+    scroll-behavior: smooth;
+}
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
 
-    background:
-        radial-gradient(
-            circle at top,
-            #263b32 0%,
-            #111713 45%,
-            #080b09 100%
-        );
+    min-height: 100vh;
 
     color: #ffffff;
 
-    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(48, 140, 82, 0.28),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 100% 100%,
+            rgba(34, 197, 94, 0.08),
+            transparent 35%
+        ),
+        #070b09;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    padding: 25px;
+    padding: 24px;
 
     overflow-x: hidden;
 }
 
 
-/* ==========================================
+/* =========================================================
    CONTENEDOR PRINCIPAL
-   ========================================== */
+   ========================================================= */
 
 .quiz-container {
     width: 100%;
-    max-width: 760px;
+    max-width: 820px;
 
-    background: rgba(25, 29, 27, 0.94);
+    padding: 42px;
 
-    padding: 45px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25, 32, 28, 0.97),
+            rgba(14, 19, 16, 0.97)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
     border-radius: 28px;
 
     text-align: center;
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
-
     box-shadow:
-        0 25px 80px rgba(0, 0, 0, 0.55),
-        0 0 40px rgba(55, 180, 100, 0.05);
+        0 30px 80px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(34, 197, 94, 0.025);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(18px);
 
     animation: aparecer 0.45s ease;
 }
 
 
-/* ==========================================
-   ANIMACIÓN
-   ========================================== */
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
 
 @keyframes aparecer {
-
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(18px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes subir {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
 
     to {
         opacity: 1;
         transform: translateY(0);
     }
-
 }
 
 
-/* ==========================================
+/* =========================================================
    TÍTULOS
-   ========================================== */
+   ========================================================= */
 
 h1 {
-    font-size: 42px;
+    font-size: clamp(32px, 5vw, 46px);
+
     font-weight: 900;
 
-    margin-bottom: 12px;
+    letter-spacing: -1.5px;
 
-    letter-spacing: -1px;
+    line-height: 1.05;
+
+    margin-bottom: 14px;
 }
-
 
 h2 {
-    font-size: 30px;
+    font-size: clamp(23px, 4vw, 31px);
 
-    line-height: 1.35;
+    line-height: 1.25;
 
-    margin-bottom: 30px;
+    font-weight: 800;
+
+    margin-bottom: 28px;
 }
 
+h3 {
+    font-weight: 800;
+}
 
 p {
-    font-size: 18px;
+    font-size: 17px;
 
-    margin-bottom: 25px;
+    color: #aeb8b1;
 
-    color: #b9c0bb;
+    line-height: 1.55;
 
-    line-height: 1.5;
+    margin-bottom: 22px;
 }
 
 
-/* ==========================================
+/* =========================================================
    BOTONES GENERALES
-   ========================================== */
+   ========================================================= */
 
 button {
-    border: none;
+    border: 0;
 
     border-radius: 14px;
 
-    padding: 16px 25px;
+    padding: 15px 22px;
 
-    font-size: 17px;
+    min-height: 52px;
+
+    font-family: inherit;
+
+    font-size: 16px;
 
     font-weight: 800;
 
     cursor: pointer;
 
-    background: #ffffff;
+    background: #f4f7f5;
 
-    color: #111;
+    color: #101512;
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease;
 
-    margin: 7px 0;
+    -webkit-tap-highlight-color: transparent;
 }
-
 
 button:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.3);
+        0 10px 25px rgba(0, 0, 0, 0.25);
 }
-
 
 button:active {
-    transform: scale(0.97);
+    transform: translateY(0) scale(0.98);
+}
+
+button:focus-visible {
+    outline: 3px solid rgba(74, 222, 128, 0.45);
+
+    outline-offset: 3px;
 }
 
 
-/* ==========================================
+/* =========================================================
    BOTONES DEL MENÚ
-   ========================================== */
+   ========================================================= */
+
+#menu {
+    animation: subir 0.4s ease;
+}
 
 #menu button {
     width: 100%;
 
     display: block;
 
-    margin: 14px 0;
+    margin: 12px 0;
 
-    padding: 18px;
+    padding: 17px 20px;
 
-    font-size: 18px;
+    min-height: 58px;
+
+    font-size: 17px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #e8eee9
+        );
 }
 
+#menu button:hover {
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.32);
+}
 
 #menu button:first-of-type {
-    background: #ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #e8eee9
+        );
 }
-
 
 #menu button:nth-of-type(2) {
-    background: #e9eee9;
+    background:
+        linear-gradient(
+            135deg,
+            #edf2ee,
+            #dce5df
+        );
 }
-
 
 #menu button:nth-of-type(3) {
-    background: #dce3de;
+    background:
+        linear-gradient(
+            135deg,
+            #e4ebe6,
+            #d2ddd5
+        );
 }
 
 
-/* ==========================================
+/* =========================================================
    BOTONES SECUNDARIOS
-   ========================================== */
+   ========================================================= */
 
 .boton-secundario {
-    background: #252b28;
+    background: #202923;
 
-    color: white;
+    color: #ffffff;
 
-    border: 1px solid #3d4641;
+    border: 1px solid #354139;
+
+    box-shadow: none;
 }
-
 
 .boton-secundario:hover {
-    background: #303833;
+    background: #29332d;
+
+    border-color: #4a5b50;
 }
 
 
-/* ==========================================
+/* =========================================================
    HEADER DEL QUIZ
-   ========================================== */
+   ========================================================= */
 
 .quiz-header {
     display: flex;
@@ -223,210 +304,315 @@ button:active {
 
     align-items: center;
 
+    gap: 15px;
+
     margin-bottom: 25px;
 
-    color: #aeb7b0;
+    color: #9da9a1;
 
-    font-size: 15px;
+    font-size: 14px;
 
-    font-weight: bold;
+    font-weight: 800;
+}
+
+.quiz-header > * {
+    min-width: 0;
 }
 
 
-/* ==========================================
+/* =========================================================
    TIPO DE PREGUNTA
-   ========================================== */
+   ========================================================= */
 
 .tipo-pregunta {
-    display: inline-block;
+    display: inline-flex;
 
-    background: #26352d;
+    align-items: center;
 
-    color: #a9d3b5;
+    justify-content: center;
 
-    padding: 8px 15px;
+    background:
+        rgba(34, 197, 94, 0.10);
 
-    border-radius: 20px;
+    color: #86efac;
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
 
     font-size: 12px;
 
-    font-weight: 800;
+    font-weight: 900;
 
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 
-    border: 1px solid #385342;
+    border: 1px solid rgba(74, 222, 128, 0.20);
+
+    letter-spacing: 0.3px;
 }
 
 
-/* ==========================================
+/* =========================================================
    ALTERNATIVAS
-   ========================================== */
+   ========================================================= */
 
 .opciones {
     display: grid;
 
+    grid-template-columns: 1fr 1fr;
+
     gap: 13px;
 
-    margin-bottom: 25px;
+    margin-bottom: 24px;
 }
-
 
 .opcion {
     width: 100%;
 
-    background: #222824;
+    min-height: 66px;
 
-    color: white;
+    background:
+        linear-gradient(
+            145deg,
+            #202722,
+            #191f1b
+        );
 
-    border: 2px solid #343c37;
+    color: #ffffff;
+
+    border: 1px solid #354139;
 
     text-align: left;
 
-    padding: 18px 20px;
+    padding: 17px 18px;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
-    font-size: 17px;
+    font-size: 16px;
 
-    transition: all 0.2s ease;
+    font-weight: 700;
+
+    line-height: 1.35;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.16);
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
 }
-
 
 .opcion:hover {
-    background: #2d352f;
+    background:
+        linear-gradient(
+            145deg,
+            #29332d,
+            #202923
+        );
 
-    border-color: #5b6b60;
+    border-color: #607168;
 
     transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 22px rgba(0, 0, 0, 0.25);
 }
 
+.opcion:active {
+    transform: scale(0.985);
+}
+
+
+/* =========================================================
+   RESPUESTA CORRECTA / INCORRECTA
+   ========================================================= */
 
 .opcion.correcta {
-    background: #166534;
+    background:
+        linear-gradient(
+            135deg,
+            #166534,
+            #15803d
+        );
 
-    border-color: #22a052;
+    border-color: #4ade80;
 
-    color: white;
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 25px rgba(34, 197, 94, 0.20);
 }
-
 
 .opcion.incorrecta {
-    background: #8f241f;
+    background:
+        linear-gradient(
+            135deg,
+            #7f1d1d,
+            #991b1b
+        );
 
-    border-color: #c43b34;
+    border-color: #f87171;
 
-    color: white;
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 25px rgba(239, 68, 68, 0.18);
 }
 
 
-/* ==========================================
-   RESPUESTAS
-   ========================================== */
+/* =========================================================
+   RESPUESTAS / EXPLICACIÓN
+   ========================================================= */
 
 .respuesta {
     padding: 22px;
 
-    border-radius: 16px;
+    border-radius: 18px;
 
     margin: 20px 0;
 
     text-align: left;
 
-    border: 1px solid rgba(255,255,255,0.06);
-}
+    border: 1px solid rgba(255, 255, 255, 0.07);
 
+    animation: subir 0.25s ease;
+}
 
 .correcta-texto {
-    background: rgba(22, 128, 60, 0.15);
-}
+    background:
+        linear-gradient(
+            135deg,
+            rgba(22, 128, 60, 0.18),
+            rgba(22, 128, 60, 0.07)
+        );
 
+    border-color:
+        rgba(74, 222, 128, 0.16);
+}
 
 .incorrecta-texto {
-    background: rgba(179, 38, 30, 0.15);
-}
+    background:
+        linear-gradient(
+            135deg,
+            rgba(179, 38, 30, 0.18),
+            rgba(179, 38, 30, 0.07)
+        );
 
+    border-color:
+        rgba(248, 113, 113, 0.16);
+}
 
 .respuesta h3 {
-    margin-bottom: 10px;
-}
+    margin-bottom: 9px;
 
+    font-size: 19px;
+}
 
 .respuesta p {
     font-size: 16px;
 
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 
-    color: white;
+    color: #ffffff;
 }
 
 
-/* ==========================================
+/* =========================================================
    BOTÓN SIGUIENTE
-   ========================================== */
+   ========================================================= */
 
 .siguiente-btn,
 #siguiente-btn {
-    margin-top: 10px;
-
-    background: white;
-
-    color: #111;
-
     width: 100%;
+
+    margin-top: 10px;
 
     padding: 17px;
 
+    min-height: 56px;
+
     font-size: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #e6ece8
+        );
+
+    color: #101512;
+
+    border-radius: 16px;
+}
+
+.siguiente-btn:hover,
+#siguiente-btn:hover {
+    box-shadow:
+        0 12px 30px rgba(255, 255, 255, 0.08);
 }
 
 
-/* ==========================================
+/* =========================================================
    PUNTAJE FINAL
-   ========================================== */
+   ========================================================= */
 
 .puntaje-final {
-    font-size: 72px;
+    font-size: clamp(58px, 10vw, 82px);
 
-    font-weight: 900;
+    line-height: 1;
 
-    margin: 25px 0;
-}
-
-
-/* ==========================================
-   MODO ORAL
-   ========================================== */
-
-.modo-voz {
-    background: #202722;
-
-    border: 1px solid #354139;
-
-    border-radius: 18px;
-
-    padding: 28px;
+    font-weight: 950;
 
     margin: 25px 0;
+
+    letter-spacing: -3px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #86efac
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
 }
 
 
-.modo-voz p {
-    margin-bottom: 10px;
-}
+/* =========================================================
+   MODO VOZ
+   ========================================================= */
 
-
+.modo-voz,
 .modo-oral {
-    background: #202722;
+    background:
+        linear-gradient(
+            145deg,
+            #202923,
+            #171d19
+        );
 
     border: 1px solid #354139;
 
     border-radius: 20px;
 
-    padding: 30px;
+    padding: 28px;
 
     margin: 25px 0;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.18);
 }
 
+.modo-voz p,
+.modo-oral p {
+    margin-bottom: 10px;
+}
 
 .icono-oral {
     font-size: 48px;
@@ -434,33 +620,35 @@ button:active {
     margin-bottom: 12px;
 }
 
-
 .modo-oral h3 {
     margin-bottom: 10px;
 }
-
 
 .modo-oral p {
     font-size: 16px;
 }
 
 
-/* ==========================================
+/* =========================================================
    VERDADERO / FALSO
-   ========================================== */
+   ========================================================= */
 
 .vf-respuesta {
     margin-top: 25px;
 
-    background: #202722;
+    background:
+        linear-gradient(
+            145deg,
+            #202923,
+            #171d19
+        );
 
-    border-radius: 18px;
+    border-radius: 20px;
 
     padding: 25px;
 
     border: 1px solid #354139;
 }
-
 
 .vf-respuesta h3 {
     font-size: 25px;
@@ -468,39 +656,41 @@ button:active {
     margin-bottom: 15px;
 }
 
-
 .vf-respuesta p {
     font-size: 17px;
 
     line-height: 1.5;
 
-    color: #ddd;
+    color: #d7ddd9;
 }
 
 
-/* ==========================================
+/* =========================================================
    ACERTASTE
-   ========================================== */
+   ========================================================= */
 
 .acertaste {
     margin-top: 25px;
 
     padding: 22px;
 
-    background: #202722;
+    background:
+        linear-gradient(
+            145deg,
+            #202923,
+            #171d19
+        );
 
-    border-radius: 18px;
+    border-radius: 20px;
 
     border: 1px solid #354139;
 }
-
 
 .acertaste h3 {
     margin-bottom: 15px;
 
     font-size: 20px;
 }
-
 
 .acertaste-botones {
     display: flex;
@@ -510,129 +700,52 @@ button:active {
     justify-content: center;
 }
 
-
 .acertaste-botones button {
     min-width: 120px;
 }
 
-
 .acertaste-si {
-    background: #16803c;
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #166534
+        );
 
     color: white;
 }
-
 
 .acertaste-no {
-    background: #b3261e;
+    background:
+        linear-gradient(
+            135deg,
+            #991b1b,
+            #7f1d1d
+        );
 
     color: white;
 }
 
 
-/* ==========================================
-   FORMULARIO CREAR PREGUNTA
-   ========================================== */
+/* =========================================================
+   FORMULARIOS
+   ========================================================= */
 
-#crear-pregunta {
+#crear-pregunta,
+#configuracion-partida,
+#banco-preguntas {
     text-align: left;
 }
 
-
-#crear-pregunta h1 {
+#crear-pregunta h1,
+#configuracion-partida h1,
+#banco-preguntas h1 {
     text-align: center;
 
     margin-bottom: 30px;
 }
 
-
-#crear-pregunta label {
-    display: block;
-
-    margin-top: 18px;
-
-    margin-bottom: 8px;
-
-    font-size: 14px;
-
-    font-weight: 800;
-
-    color: #cbd2cd;
-}
-
-
-#crear-pregunta input,
-#crear-pregunta textarea,
-#crear-pregunta select {
-
-    width: 100%;
-
-    padding: 15px;
-
-    border-radius: 12px;
-
-    border: 2px solid #343c37;
-
-    background: #202522;
-
-    color: white;
-
-    font-size: 16px;
-
-    outline: none;
-
-    transition: border 0.2s ease;
-}
-
-
-#crear-pregunta input:focus,
-#crear-pregunta textarea:focus,
-#crear-pregunta select:focus {
-
-    border-color: #6c7d70;
-
-}
-
-
-#crear-pregunta textarea {
-
-    min-height: 110px;
-
-    resize: vertical;
-
-    font-family: Arial, sans-serif;
-}
-
-
-#crear-pregunta button {
-
-    width: 100%;
-
-    margin-top: 18px;
-}
-
-
-#opciones-container {
-    margin-top: 10px;
-}
-
-
-/* ==========================================
-   CONFIGURACIÓN
-   ========================================== */
-
-#configuracion-partida {
-    text-align: left;
-}
-
-
-#configuracion-partida h1 {
-    text-align: center;
-
-    margin-bottom: 30px;
-}
-
-
+#crear-pregunta label,
 #configuracion-partida label {
     display: block;
 
@@ -640,88 +753,80 @@ button:active {
 
     margin-bottom: 8px;
 
-    font-size: 14px;
+    font-size: 13px;
 
-    font-weight: 800;
+    font-weight: 900;
 
-    color: #cbd2cd;
+    color: #cbd5ce;
 }
 
-
-#configuracion-partida select {
-
+#crear-pregunta input,
+#crear-pregunta textarea,
+#crear-pregunta select,
+#configuracion-partida select,
+#buscar-preguntas,
+#filtro-tipo {
     width: 100%;
 
     padding: 15px;
 
-    border-radius: 12px;
+    border-radius: 13px;
 
-    border: 2px solid #343c37;
+    border: 1px solid #39443e;
 
-    background: #202522;
+    background: #171d19;
 
     color: white;
+
+    font-family: inherit;
 
     font-size: 16px;
 
     outline: none;
 
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
 }
 
+#crear-pregunta input:focus,
+#crear-pregunta textarea:focus,
+#crear-pregunta select:focus,
+#configuracion-partida select:focus,
+#buscar-preguntas:focus,
+#filtro-tipo:focus {
+    border-color: #4ade80;
 
+    background: #1b231e;
+
+    box-shadow:
+        0 0 0 3px rgba(74, 222, 128, 0.10);
+}
+
+#crear-pregunta textarea {
+    min-height: 110px;
+
+    resize: vertical;
+}
+
+#crear-pregunta button,
 #configuracion-partida button {
-
     width: 100%;
 
     margin-top: 18px;
 }
 
-
-/* ==========================================
-   BANCO DE PREGUNTAS
-   ========================================== */
-
-#banco-preguntas {
-    text-align: left;
+#opciones-container {
+    margin-top: 10px;
 }
 
 
-#banco-preguntas h1 {
-    text-align: center;
-
-    margin-bottom: 25px;
-}
-
-
-#buscar-preguntas,
-#filtro-tipo {
-
-    width: 100%;
-
-    padding: 15px;
-
-    margin-bottom: 12px;
-
-    border-radius: 12px;
-
-    border: 2px solid #343c37;
-
-    background: #202522;
-
-    color: white;
-
-    font-size: 16px;
-
-    outline: none;
-}
-
-
-/* ==========================================
+/* =========================================================
    TARJETAS DEL BANCO
-   ========================================== */
+   ========================================================= */
 
 .tarjeta-pregunta {
-
     display: flex;
 
     justify-content: space-between;
@@ -730,9 +835,14 @@ button:active {
 
     gap: 15px;
 
-    background: #202522;
+    background:
+        linear-gradient(
+            145deg,
+            #202722,
+            #181e1a
+        );
 
-    border: 1px solid #343c37;
+    border: 1px solid #354139;
 
     border-radius: 18px;
 
@@ -740,20 +850,21 @@ button:active {
 
     margin-top: 15px;
 
-    transition: transform 0.2s ease;
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease;
 }
-
 
 .tarjeta-pregunta:hover {
-
     transform: translateY(-2px);
 
-    background: #252c27;
+    border-color: #4a5b50;
+
+    background: #242d27;
 }
 
-
 .tarjeta-pregunta h3 {
-
     margin-top: 8px;
 
     font-size: 18px;
@@ -761,9 +872,7 @@ button:active {
     line-height: 1.4;
 }
 
-
 .etiqueta-tipo {
-
     display: inline-block;
 
     background: #303a34;
@@ -780,12 +889,11 @@ button:active {
 }
 
 
-/* ==========================================
+/* =========================================================
    BOTONES DEL BANCO
-   ========================================== */
+   ========================================================= */
 
 .acciones-pregunta {
-
     display: flex;
 
     gap: 8px;
@@ -793,9 +901,7 @@ button:active {
     flex-shrink: 0;
 }
 
-
 .editar-btn {
-
     background: #39423c;
 
     color: white;
@@ -803,15 +909,11 @@ button:active {
     padding: 10px 15px;
 }
 
-
 .editar-btn:hover {
-
     background: #4a554d;
 }
 
-
 .eliminar-btn {
-
     background: #8f241f;
 
     color: white;
@@ -819,25 +921,20 @@ button:active {
     padding: 10px 15px;
 }
 
-
 .eliminar-btn:hover {
-
     background: #b92e27;
 }
 
-
 .acciones-pregunta .eliminar-btn {
-
     margin: 0;
 }
 
 
-/* ==========================================
+/* =========================================================
    SIN PREGUNTAS
-   ========================================== */
+   ========================================================= */
 
 .sin-preguntas {
-
     text-align: center;
 
     padding: 40px 10px;
@@ -846,159 +943,661 @@ button:active {
 }
 
 
-/* ==========================================
-   RESPONSIVE — CELULAR
-   ========================================== */
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
 
-@media (max-width: 600px) {
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #080b09;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #354139;
+
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4a5b50;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 700px) {
 
     body {
-
-        padding: 12px;
+        padding: 16px;
 
         align-items: flex-start;
 
         padding-top: 20px;
-
     }
-
 
     .quiz-container {
+        padding: 30px 22px;
 
-        padding: 25px 18px;
+        border-radius: 24px;
+    }
 
-        border-radius: 22px;
+    .opciones {
+        grid-template-columns: 1fr;
+    }
+
+    .opcion {
+        min-height: 60px;
+    }
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+
+        padding-top: 12px;
+    }
+
+    .quiz-container {
+        padding: 24px 16px;
+
+        border-radius: 21px;
 
         max-width: 100%;
-
     }
-
 
     h1 {
+        font-size: 31px;
 
-        font-size: 30px;
-
+        letter-spacing: -1px;
     }
-
 
     h2 {
+        font-size: 23px;
 
-        font-size: 24px;
-
+        margin-bottom: 22px;
     }
-
 
     p {
-
-        font-size: 16px;
-
+        font-size: 15px;
     }
 
-
     button {
-
         width: 100%;
 
+        min-height: 52px;
+
+        font-size: 15px;
+
+        padding: 14px 16px;
+    }
+
+    #menu button {
+        min-height: 56px;
+
         font-size: 16px;
+    }
+
+    .quiz-header {
+        font-size: 12px;
+
+        margin-bottom: 20px;
+    }
+
+    .tipo-pregunta {
+        font-size: 11px;
+
+        padding: 7px 12px;
+    }
+
+    .opciones {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .opcion {
+        min-height: 58px;
 
         padding: 15px;
 
+        font-size: 15px;
+
+        border-radius: 14px;
     }
 
+    .respuesta {
+        padding: 18px;
 
-    .quiz-header {
-
-        font-size: 13px;
-
+        border-radius: 16px;
     }
 
-
-    .opcion {
-
-        padding: 16px;
-
-        font-size: 16px;
-
+    .respuesta p {
+        font-size: 15px;
     }
-
 
     .puntaje-final {
+        font-size: 60px;
 
-        font-size: 58px;
-
+        letter-spacing: -2px;
     }
 
+    .modo-voz,
+    .modo-oral,
+    .vf-respuesta,
+    .acertaste {
+        padding: 20px;
+
+        border-radius: 17px;
+    }
+
+    .acertaste-botones {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    .acertaste-botones button {
+        width: 100%;
+    }
 
     .tarjeta-pregunta {
-
         flex-direction: column;
 
         align-items: stretch;
 
+        padding: 17px;
     }
-
 
     .acciones-pregunta {
-
         width: 100%;
-
     }
-
 
     .acciones-pregunta button {
-
         flex: 1;
-
     }
-
-
-    .acertaste-botones {
-
-        flex-direction: column;
-
-    }
-
-
-    .acertaste-botones button {
-
-        width: 100%;
-
-    }
-
 }
 
 
-/* ==========================================
-   CELULARES MUY PEQUEÑOS
-   ========================================== */
+/* =========================================================
+   CELULARES PEQUEÑOS
+   ========================================================= */
 
 @media (max-width: 380px) {
 
-    .quiz-container {
-
-        padding: 20px 14px;
-
+    body {
+        padding: 7px;
     }
 
+    .quiz-container {
+        padding: 21px 13px;
+
+        border-radius: 18px;
+    }
 
     h1 {
-
         font-size: 27px;
-
     }
-
 
     h2 {
-
         font-size: 21px;
-
     }
 
+    .quiz-header {
+        font-size: 11px;
+    }
+
+    .opcion {
+        padding: 14px;
+
+        font-size: 14px;
+    }
 }
-.logo-dtf {
-    width: 220px;
-    max-width: 75%;
-    height: auto;
-    display: block;
-    margin: 0 auto 20px ;
+
+
+/* =========================================================
+   DISPOSITIVOS CON POCO ALTO
+   ========================================================= */
+
+@media (max-height: 650px) and (min-width: 601px) {
+
+    body {
+        align-items: flex-start;
+
+        padding-top: 20px;
+    }
+
+    .quiz-container {
+        padding-top: 28px;
+
+        padding-bottom: 28px;
+    }
+}
+/* =========================================================
+   🏆 RANKING — DISEÑO DESTACADO
+   ========================================================= */
+
+#ranking {
+    animation: aparecer 0.4s ease;
+}
+
+#ranking h1 {
+    margin-bottom: 10px;
+}
+
+#ranking > p {
+    margin-bottom: 28px;
+}
+
+
+/* ---------------------------------------------------------
+   CONTENEDORES DE CADA RANKING
+   --------------------------------------------------------- */
+
+[id^="ranking-"] {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin: 15px 0 30px;
+}
+
+
+/* ---------------------------------------------------------
+   TARJETA DE JUGADOR
+   --------------------------------------------------------- */
+
+.ranking-jugador {
+    width: 100%;
+
+    min-height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px 20px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #202923,
+            #171d19
+        );
+
+    border: 1px solid #354139;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease;
+}
+
+.ranking-jugador:hover {
+    transform: translateY(-2px);
+
+    border-color: #4a5b50;
+
+    background:
+        linear-gradient(
+            135deg,
+            #27312b,
+            #1c241f
+        );
+}
+
+
+/* ---------------------------------------------------------
+   NOMBRE + POSICIÓN
+   --------------------------------------------------------- */
+
+.ranking-jugador span {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+    color: #ffffff;
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    text-align: left;
+}
+
+
+/* ---------------------------------------------------------
+   PUNTOS
+   --------------------------------------------------------- */
+
+.ranking-jugador strong {
+    flex-shrink: 0;
+
+    padding: 9px 13px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(74, 222, 128, 0.10);
+
+    border: 1px solid
+        rgba(74, 222, 128, 0.18);
+
+    color: #86efac;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PODIO — PRIMEROS 3
+   ========================================================= */
+
+.ranking-jugador:nth-child(1) {
+    min-height: 82px;
+
+    padding: 17px 21px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(120, 92, 25, 0.28),
+            rgba(36, 34, 22, 0.95)
+        );
+
+    border-color:
+        rgba(250, 204, 21, 0.35);
+
+    box-shadow:
+        0 8px 25px rgba(250, 204, 21, 0.07);
+}
+
+.ranking-jugador:nth-child(1) span {
+    font-size: 22px;
+}
+
+.ranking-jugador:nth-child(1) strong {
+    font-size: 21px;
+
+    padding: 10px 15px;
+
+    color: #fde68a;
+
+    background:
+        rgba(250, 204, 21, 0.10);
+
+    border-color:
+        rgba(250, 204, 21, 0.25);
+}
+
+
+.ranking-jugador:nth-child(2) {
+    min-height: 76px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(148, 163, 184, 0.13),
+            rgba(30, 35, 32, 0.95)
+        );
+
+    border-color:
+        rgba(203, 213, 225, 0.20);
+}
+
+.ranking-jugador:nth-child(2) span {
+    font-size: 20px;
+}
+
+.ranking-jugador:nth-child(2) strong {
+    font-size: 20px;
+
+    color: #dbeafe;
+
+    background:
+        rgba(203, 213, 225, 0.08);
+
+    border-color:
+        rgba(203, 213, 225, 0.18);
+}
+
+
+.ranking-jugador:nth-child(3) {
+    min-height: 73px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(180, 83, 9, 0.14),
+            rgba(30, 30, 25, 0.95)
+        );
+
+    border-color:
+        rgba(251, 146, 60, 0.20);
+}
+
+.ranking-jugador:nth-child(3) span {
+    font-size: 19px;
+}
+
+.ranking-jugador:nth-child(3) strong {
+    color: #fdba74;
+
+    background:
+        rgba(251, 146, 60, 0.08);
+
+    border-color:
+        rgba(251, 146, 60, 0.18);
+}
+
+
+/* =========================================================
+   POSICIONES 4 EN ADELANTE
+   ========================================================= */
+
+.ranking-jugador:nth-child(n + 4) {
+    opacity: 0.95;
+}
+
+.ranking-jugador:nth-child(n + 4) span {
+    font-size: 17px;
+
+    color: #d7ddd9;
+}
+
+.ranking-jugador:nth-child(n + 4) strong {
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   RANKING VACÍO
+   ========================================================= */
+
+[id^="ranking-"] > p {
+    padding: 30px 20px;
+
+    margin: 0;
+
+    text-align: center;
+
+    border-radius: 16px;
+
+    background: #171d19;
+
+    border: 1px dashed #354139;
+
+    color: #89958d;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    #ranking {
+        width: 100%;
+    }
+
+    #ranking h1 {
+        font-size: 29px;
+
+        margin-bottom: 8px;
+    }
+
+    #ranking > p {
+        font-size: 14px;
+
+        margin-bottom: 22px;
+    }
+
+    [id^="ranking-"] {
+        gap: 8px;
+
+        margin-bottom: 24px;
+    }
+
+    .ranking-jugador {
+        min-height: 62px;
+
+        padding: 12px 13px;
+
+        border-radius: 14px;
+
+        gap: 9px;
+    }
+
+    .ranking-jugador span {
+        gap: 8px;
+
+        font-size: 16px;
+
+        overflow: hidden;
+    }
+
+    .ranking-jugador span:last-child {
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+    .ranking-jugador strong {
+        font-size: 15px;
+
+        padding: 7px 9px;
+
+        border-radius: 9px;
+    }
+
+
+    /* Podio */
+
+    .ranking-jugador:nth-child(1) {
+        min-height: 72px;
+
+        padding: 14px;
+    }
+
+    .ranking-jugador:nth-child(1) span {
+        font-size: 19px;
+    }
+
+    .ranking-jugador:nth-child(1) strong {
+        font-size: 17px;
+
+        padding: 8px 10px;
+    }
+
+
+    .ranking-jugador:nth-child(2) {
+        min-height: 67px;
+    }
+
+    .ranking-jugador:nth-child(2) span {
+        font-size: 17px;
+    }
+
+    .ranking-jugador:nth-child(2) strong {
+        font-size: 16px;
+    }
+
+
+    .ranking-jugador:nth-child(3) {
+        min-height: 64px;
+    }
+
+    .ranking-jugador:nth-child(3) span {
+        font-size: 16px;
+    }
+
+
+    .ranking-jugador:nth-child(n + 4) span {
+        font-size: 15px;
+    }
+
+    .ranking-jugador:nth-child(n + 4) strong {
+        font-size: 14px;
+    }
+}
+
+
+/* =========================================================
+   CELULARES MUY PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .ranking-jugador {
+        padding: 10px;
+
+        min-height: 58px;
+    }
+
+    .ranking-jugador span {
+        font-size: 14px;
+    }
+
+    .ranking-jugador strong {
+        font-size: 13px;
+
+        padding: 6px 8px;
+    }
+
+    .ranking-jugador:nth-child(1) span {
+        font-size: 17px;
+    }
+
+    .ranking-jugador:nth-child(1) strong {
+        font-size: 15px;
+    }
 }
