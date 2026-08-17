@@ -15,6 +15,11 @@ const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
+
+// ==========================================
+// GENERAR PREGUNTAS CON OPENAI
+// ==========================================
+
 app.post("/generar-preguntas", async (req, res) => {
 
     try {
@@ -26,7 +31,27 @@ app.post("/generar-preguntas", async (req, res) => {
             cantidad
         } = req.body;
 
+
+        // ======================================
+        // VALIDAR DATOS
+        // ======================================
+
+        if (!categoria || !dificultad || !tipo || !cantidad) {
+
+            return res.status(400).json({
+                error: "Faltan datos para generar las preguntas."
+            });
+
+        }
+
+
+        // ======================================
+        // PROMPT
+        // ======================================
+
         const prompt = `
+Eres un experto en fútbol y estás creando preguntas para un juego de trivia llamado DTF (De Todo Fútbol).
+
 Genera ${cantidad} preguntas de fútbol.
 
 Categoría:
@@ -38,18 +63,44 @@ ${dificultad}
 Tipo:
 ${tipo}
 
-Cada pregunta debe tener:
 
-- pregunta
-- 4 alternativas
-- índice de la respuesta correcta (0, 1, 2 o 3)
-- explicación breve de la respuesta correcta
+REGLAS:
 
-Devuelve ÚNICAMENTE un JSON válido con este formato:
+- Las preguntas deben ser reales y tener una respuesta correcta.
+- No repitas preguntas.
+- La dificultad debe respetarse.
+- La categoría debe respetarse.
+- Las explicaciones deben ser breves y claras.
+- No inventes datos.
+- Devuelve solamente JSON válido.
+
+
+Si el tipo es "4-opciones":
+
+Cada pregunta debe tener exactamente 4 alternativas.
+
+
+Si el tipo es "2-opciones":
+
+Cada pregunta debe tener exactamente 2 alternativas.
+
+
+Si el tipo es "verdadero-falso":
+
+Las únicas alternativas permitidas son:
+
+"VERDADERO"
+"FALSO"
+
+
+Devuelve EXACTAMENTE este formato:
 
 {
     "preguntas": [
         {
+            "tipo": "${tipo}",
+            "categoria": "${categoria}",
+            "dificultad": "${dificultad}",
             "pregunta": "Pregunta aquí",
             "opciones": [
                 "Alternativa 1",
@@ -58,40 +109,130 @@ Devuelve ÚNICAMENTE un JSON válido con este formato:
                 "Alternativa 4"
             ],
             "correcta": 0,
-            "explicacion": "Explicación aquí"
+            "explicacion": "Explicación breve."
         }
     ]
 }
 
-No agregues texto antes ni después del JSON.
+IMPORTANTE:
+
+"correcta" debe ser el índice de la respuesta correcta comenzando desde 0.
+
+Por ejemplo:
+
+0 = primera alternativa
+1 = segunda alternativa
+2 = tercera alternativa
+3 = cuarta alternativa
+
+No escribas absolutamente nada fuera del JSON.
 `;
 
-        const response = await client.responses.create({
-            model: "gpt-5-mini",
-            input: prompt
-        });
 
-        const texto = response.output_text;
+        // ======================================
+        // LLAMAR A OPENAI
+        // ======================================
 
-        const resultado = JSON.parse(texto);
+        const response =
+            await client.responses.create({
+
+                model: "gpt-5-mini",
+
+                input: prompt
+
+            });
+
+
+        const texto =
+            response.output_text.trim();
+
+
+        console.log(
+            "Respuesta recibida de OpenAI:"
+        );
+
+        console.log(texto);
+
+
+        // ======================================
+        // CONVERTIR A JSON
+        // ======================================
+
+        const resultado =
+            JSON.parse(texto);
+
+
+        // ======================================
+        // COMPROBAR RESULTADO
+        // ======================================
+
+        if (
+            !resultado.preguntas ||
+            !Array.isArray(
+                resultado.preguntas
+            )
+        ) {
+
+            throw new Error(
+                "OpenAI no devolvió preguntas válidas."
+            );
+
+        }
+
+
+        // ======================================
+        // DEVOLVER AL NAVEGADOR
+        // ======================================
 
         res.json(resultado);
 
-        } catch (error) {
 
-    console.error("ERROR REAL DE OPENAI:");
-    console.error(error);
+    } catch (error) {
 
-    res.status(500).json({
-        error:
-            error.message ||
-            "Error desconocido del servidor."
-    });
+        console.error(
+            "================================"
+        );
 
-}
+        console.error(
+            "ERROR REAL DE OPENAI:"
+        );
+
+        console.error(error);
+
+        console.error(
+            "================================"
+        );
+
+
+        res.status(500).json({
+
+            error:
+                error.message ||
+                "Error desconocido del servidor."
+
+        });
+
+    }
+
 });
-const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Servidor funcionando en el puerto ${PORT}`);
-});
+
+// ==========================================
+// SERVIDOR
+// ==========================================
+
+const PORT =
+    process.env.PORT || 3000;
+
+
+app.listen(
+    PORT,
+    "0.0.0.0",
+    () => {
+
+        console.log(
+            `Servidor funcionando en el puerto ${PORT}`
+        );
+
+    }
+);

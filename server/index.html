@@ -4,20 +4,22 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>DeTodoFútbol | Quiz de Fútbol</title>
 
     <meta
         name="description"
-        content="DeTodoFútbol: pon a prueba tus conocimientos con quizzes de fútbol, jugadores, clubes, mundiales, fútbol chileno y mucho más.">
+        content="DeTodoFútbol: pon a prueba tus conocimientos de fútbol."
+    >
+
+    <link rel="stylesheet" href="style.css">
 
     <link
-        rel="stylesheet"
-        href="style.css">
-<link rel="icon" type="image/png" href="logo-dtf.png">
+        rel="icon"
+        type="image/png"
+        href="logo-dtf.png"
+    >
 </head>
 
 
@@ -29,37 +31,26 @@
 
     <div id="menu">
 
-    <h1>DTF</h1>
-<h2>DeTodoFútbol</h2>
+        <h1>DTF</h1>
+
+        <h2>DeTodoFútbol</h2>
+
         <p>
             Pon a prueba tus conocimientos
         </p>
 
 
-        <button
-            onclick="mostrarConfiguracion()">
-
+        <button onclick="mostrarConfiguracion()">
             🎮 JUGAR
-
         </button>
 
 
-        <button
-            onclick="mostrarCrearPregunta()">
-
-            ➕ CREAR PREGUNTA
-
-        </button>
-
-
-        <button
-            onclick="mostrarBanco()">
-
-            📚 BANCO DE PREGUNTAS
-
+        <button onclick="mostrarRanking()">
+            🏆 RANKING
         </button>
 
     </div>
+
 
 
     <!-- =====================================
@@ -68,25 +59,59 @@
 
     <div
         id="configuracion-partida"
-        style="display:none;">
+        style="display:none;"
+    >
 
         <h1>
             🎮 CONFIGURAR PARTIDA
         </h1>
 
 
-        <label>
-            Categoría
+        <!-- NOMBRE -->
+
+        <label for="config-nombre">
+            👤 Nombre del jugador
+        </label>
+
+        <input
+            id="config-nombre"
+            type="text"
+            maxlength="20"
+            placeholder="Escribe tu nombre"
+        >
+
+
+
+        <!-- CATEGORÍA -->
+
+        <label for="config-categoria">
+            ⚽ Categoría
         </label>
 
         <select id="config-categoria">
 
-            <option value="todos">
-                🔀 Todas
+            <option value="champions">
+                🏆 Champions League
             </option>
 
-            <option value="general">
-                ⚽ Fútbol general
+            <option value="premier-league">
+                🏴 Premier League
+            </option>
+
+            <option value="laliga">
+                🇪🇸 LaLiga
+            </option>
+
+            <option value="ligue-1">
+                🇫🇷 Ligue 1
+            </option>
+
+            <option value="serie-a">
+                🇮🇹 Serie A
+            </option>
+
+            <option value="cinco-grandes-ligas">
+                🌍 Las 5 grandes ligas
             </option>
 
             <option value="futbol-chileno">
@@ -97,24 +122,12 @@
                 ⚪⚫ Colo-Colo
             </option>
 
-            <option value="universidad-de-chile">
-                🔵 Universidad de Chile
-            </option>
-
-            <option value="universidad-catolica">
-                🔵 Universidad Católica
-            </option>
-
-            <option value="internacional">
-                🌎 Fútbol internacional
-            </option>
-
             <option value="libertadores">
-                🏆 Copa Libertadores
+                🏆 Libertadores
             </option>
 
             <option value="mundiales">
-                🌍 Mundiales
+                🌎 Mundiales
             </option>
 
             <option value="jugadores">
@@ -122,14 +135,17 @@
             </option>
 
             <option value="historia">
-                📜 Historia del fútbol
+                📜 Historia
             </option>
 
         </select>
 
 
-        <label>
-            Dificultad
+
+        <!-- DIFICULTAD -->
+
+        <label for="config-dificultad">
+            🎯 Dificultad
         </label>
 
         <select id="config-dificultad">
@@ -139,22 +155,25 @@
             </option>
 
             <option value="facil">
-                🟢 Fácil
+                🟢 Fácil — 1 punto
             </option>
 
             <option value="medio">
-                🟡 Medio
+                🟡 Medio — 2 puntos
             </option>
 
             <option value="dificil">
-                🔴 Difícil
+                🔴 Difícil — 3 puntos
             </option>
 
         </select>
 
 
-        <label>
-            Tipo de pregunta
+
+        <!-- TIPO -->
+
+        <label for="config-tipo">
+            📝 Tipo de pregunta
         </label>
 
         <select id="config-tipo">
@@ -174,8 +193,11 @@
         </select>
 
 
-        <label>
-            Modo de respuesta
+
+        <!-- MODO -->
+
+        <label for="config-modo">
+            🎮 Modo de respuesta
         </label>
 
         <select id="config-modo">
@@ -195,8 +217,11 @@
         </select>
 
 
-        <label>
-            Cantidad de preguntas
+
+        <!-- CANTIDAD -->
+
+        <label for="config-cantidad">
+            🔢 Cantidad de preguntas
         </label>
 
         <select id="config-cantidad">
@@ -209,37 +234,31 @@
                 10 preguntas
             </option>
 
-            <option value="15">
-                15 preguntas
+            <option value="25">
+                25 preguntas
             </option>
 
-            <option value="20">
-                20 preguntas
-            </option>
-
-            <option value="todas">
-                Todas las disponibles
+            <option value="50">
+                50 preguntas
             </option>
 
         </select>
 
 
-        <button
-            onclick="iniciarPartidaConfigurada()">
 
-            🚀 COMENZAR
+        <!-- GENERAR -->
 
+        <button onclick="iniciarPartidaConfigurada()">
+            🤖 GENERAR PREGUNTAS CON IA
         </button>
 
 
-        <button
-            onclick="volverMenu()">
-
+        <button onclick="volverMenu()">
             ← VOLVER
-
         </button>
 
     </div>
+
 
 
     <!-- =====================================
@@ -248,279 +267,99 @@
 
     <div
         id="quiz"
-        style="display:none;">
+        style="display:none;"
+    >
 
     </div>
 
 
+
     <!-- =====================================
-         CREAR PREGUNTA
+         RANKING
          ===================================== -->
 
     <div
-        id="crear-pregunta"
-        style="display:none;">
+        id="ranking"
+        style="display:none;"
+    >
 
         <h1>
-            ➕ CREAR PREGUNTA
+            🏆 RANKING
         </h1>
 
+        <p>
+            Mejores puntuaciones guardadas en este dispositivo
+        </p>
 
-        <label>
-            Tipo de pregunta
-        </label>
 
-        <select
-            id="tipo-pregunta"
-            onchange="cambiarTipoPregunta()">
+        <!-- 5 -->
 
-            <option value="4-opciones">
-                4 alternativas
-            </option>
+        <div class="ranking-seccion">
 
-            <option value="verdadero-falso">
-                Verdadero / Falso
-            </option>
+            <h2>
+                🥇 5 PREGUNTAS
+            </h2>
 
-            <option value="oral">
-    🗣️ Respuesta oral
-</option>
-
-        </select>
-
-
-        <label>
-            Categoría
-        </label>
-
-        <select id="categoria-pregunta">
-
-            <option value="general">
-                ⚽ Fútbol general
-            </option>
-
-            <option value="futbol-chileno">
-                🇨🇱 Fútbol chileno
-            </option>
-
-            <option value="colo-colo">
-                ⚪⚫ Colo-Colo
-            </option>
-
-            <option value="universidad-de-chile">
-                🔵 Universidad de Chile
-            </option>
-
-            <option value="universidad-catolica">
-                🔵 Universidad Católica
-            </option>
-
-            <option value="internacional">
-                🌎 Fútbol internacional
-            </option>
-
-            <option value="libertadores">
-                🏆 Copa Libertadores
-            </option>
-
-            <option value="mundiales">
-                🌍 Mundiales
-            </option>
-
-            <option value="jugadores">
-                👤 Jugadores
-            </option>
-
-            <option value="historia">
-                📜 Historia del fútbol
-            </option>
-
-        </select>
-
-
-        <label>
-            Dificultad
-        </label>
-
-        <select id="dificultad-pregunta">
-
-            <option value="facil">
-                🟢 Fácil
-            </option>
-
-            <option value="medio">
-                🟡 Medio
-            </option>
-
-            <option value="dificil">
-                🔴 Difícil
-            </option>
-
-        </select>
-
-
-        <label>
-            Pregunta
-        </label>
-
-        <textarea
-            id="texto-pregunta"
-            placeholder="Escribe la pregunta...">
-        </textarea>
-
-
-       <div id="opciones-container">
-
-    <label id="opcion1-label">
-        Alternativa 1
-    </label>
-
-    <input
-        id="opcion1"
-        type="text"
-        placeholder="Alternativa 1">
-
-
-    <label id="opcion2-label">
-        Alternativa 2
-    </label>
-
-    <input
-        id="opcion2"
-        type="text"
-        placeholder="Alternativa 2">
-
-
-    <label id="opcion3-label">
-        Alternativa 3
-    </label>
-
-    <input
-        id="opcion3"
-        type="text"
-        placeholder="Alternativa 3">
-
-
-    <label id="opcion4-label">
-        Alternativa 4
-    </label>
-
-    <input
-        id="opcion4"
-        type="text"
-        placeholder="Alternativa 4">
-
-</div>
-
-<div id="respuesta-oral-container" style="display:none;">
-
-    <label>
-        Respuesta correcta
-    </label>
-
-    <input
-        id="respuesta-oral"
-        type="text"
-        placeholder="Escribe la respuesta correcta">
-
-</div>
-      <div
-    id="respuesta-alternativas-container"
-    style="display:none;">
-
-    <label>
-        Respuesta correcta
-    </label>
-
-    <select id="respuesta-correcta">
-
-    </select>
-
-</div>
-        <label>
-    Justificación
-</label>
-        <textarea
-            id="justificacion"
-            placeholder="Explica por qué esta es la respuesta correcta...">
-        </textarea>
-
-
-        <button
-            id="guardar-pregunta-btn"
-            onclick="guardarPregunta()">
-
-            💾 GUARDAR PREGUNTA
-
-        </button>
-
-
-        <button
-            onclick="volverMenu()">
-
-            ← VOLVER AL MENÚ
-
-        </button>
-
-    </div>
-
-
-    <!-- =====================================
-         BANCO DE PREGUNTAS
-         ===================================== -->
-
-    <div
-        id="banco-preguntas"
-        style="display:none;">
-
-        <h1>
-            📚 BANCO DE PREGUNTAS
-        </h1>
-
-
-        <input
-            id="buscar-preguntas"
-            type="text"
-            placeholder="🔎 Buscar pregunta..."
-            oninput="mostrarBancoPreguntas()">
-
-
-        <select
-            id="filtro-tipo"
-            onchange="mostrarBancoPreguntas()">
-
-           <option value="4-opciones">
-    4 alternativas
-</option>
-
-<option value="verdadero-falso">
-    Verdadero / Falso
-</option>
-
-<option value="oral">
-    🗣️ Respuesta oral
-</option>
-
-        </select>
-
-
-        <div id="lista-preguntas">
+            <div id="ranking-5">
+                <p>No hay partidas todavía.</p>
+            </div>
 
         </div>
 
 
-        <button
-            onclick="volverMenu()">
+        <!-- 10 -->
 
+        <div class="ranking-seccion">
+
+            <h2>
+                🥇 10 PREGUNTAS
+            </h2>
+
+            <div id="ranking-10">
+                <p>No hay partidas todavía.</p>
+            </div>
+
+        </div>
+
+
+        <!-- 25 -->
+
+        <div class="ranking-seccion">
+
+            <h2>
+                🥇 25 PREGUNTAS
+            </h2>
+
+            <div id="ranking-25">
+                <p>No hay partidas todavía.</p>
+            </div>
+
+        </div>
+
+
+        <!-- 50 -->
+
+        <div class="ranking-seccion">
+
+            <h2>
+                🥇 50 PREGUNTAS
+            </h2>
+
+            <div id="ranking-50">
+                <p>No hay partidas todavía.</p>
+            </div>
+
+        </div>
+
+
+        <button onclick="volverMenu()">
             ← VOLVER AL MENÚ
-
         </button>
 
     </div>
 
-
     <!-- =====================================
-         JAVASCRIPT
+         JAVASCRIPT PRINCIPAL
          ===================================== -->
 
     <script src="script.js"></script>
