@@ -4,363 +4,592 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>DeTodoFútbol | Quiz de Fútbol</title>
-
     <meta
-        name="description"
-        content="DeTodoFútbol: pon a prueba tus conocimientos de fútbol."
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
     >
 
-    <link rel="stylesheet" href="style.css">
+    <title>DTF — DeTodoFútbol</title>
 
     <link
-        rel="icon"
-        type="image/png"
-        href="logo-dtf.png"
+        rel="stylesheet"
+        href="style.css"
     >
 </head>
 
 
 <body>
 
-    <!-- =====================================
+    <!-- =====================================================
          MENÚ PRINCIPAL
-         ===================================== -->
+         ===================================================== -->
 
-    <div id="menu">
+    <main id="menu" class="pantalla">
 
-        <h1>DTF</h1>
+        <section class="logo-dtf">
 
-        <h2>DeTodoFútbol</h2>
+            <div class="logo-balón">
+                ⚽
+            </div>
 
-        <p>
-            Pon a prueba tus conocimientos
-        </p>
+            <h1>
+                DTF
+            </h1>
 
+            <h2>
+                DeTodoFútbol
+            </h2>
 
-        <button onclick="mostrarConfiguracion()">
-            🎮 JUGAR
-        </button>
-
-
-        <button onclick="mostrarRanking()">
-            🏆 RANKING
-        </button>
-
-    </div>
+        </section>
 
 
+        <section class="inicio-presentacion">
 
-    <!-- =====================================
-         CONFIGURAR PARTIDA
-         ===================================== -->
+            <div class="inicio-etiqueta">
+                ⚽ QUIZ DE FÚTBOL
+            </div>
 
-    <div
+            <h3>
+                ¿Cuánto sabes de fútbol?
+            </h3>
+
+            <p>
+                Pon a prueba tus conocimientos,
+                supera las preguntas y consigue
+                la mayor cantidad de puntos.
+            </p>
+
+        </section>
+
+
+        <section class="inicio-botones">
+
+            <button
+                class="boton-jugar"
+                onclick="mostrarConfiguracion()"
+            >
+
+                <span class="boton-icono">
+                    🎮
+                </span>
+
+                <span>
+                    JUGAR
+                </span>
+
+                <span class="boton-flecha">
+                    →
+                </span>
+
+            </button>
+
+
+            <button
+                class="boton-ranking"
+                onclick="mostrarRanking()"
+            >
+
+                <span class="boton-icono">
+                    🏆
+                </span>
+
+                <span>
+                    RANKING
+                </span>
+
+                <span class="boton-flecha">
+                    →
+                </span>
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         CONFIGURACIÓN DE PARTIDA
+         ===================================================== -->
+
+    <main
         id="configuracion-partida"
-        style="display:none;"
+        class="pantalla"
+        style="display: none;"
     >
 
-        <h1>
-            🎮 CONFIGURAR PARTIDA
-        </h1>
+        <section class="pantalla-header">
+
+            <span class="pantalla-icono">
+                ⚙️
+            </span>
+
+            <h1>
+                Configurar partida
+            </h1>
+
+            <p>
+                Elige cómo quieres jugar.
+            </p>
+
+        </section>
 
 
-        <!-- NOMBRE -->
+        <!-- =================================================
+             NOMBRE DEL JUGADOR
+             ================================================= -->
 
-        <label for="config-nombre">
-            👤 Nombre del jugador
-        </label>
+        <div class="campo-configuracion">
 
-        <input
-            id="config-nombre"
-            type="text"
-            maxlength="20"
-            placeholder="Escribe tu nombre"
+            <label for="config-nombre">
+                👤 Nombre del jugador
+            </label>
+
+            <input
+                type="text"
+                id="config-nombre"
+                maxlength="20"
+                placeholder="Escribe tu nombre..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+
+        <!-- =================================================
+             CATEGORÍA
+             ================================================= -->
+
+        <div class="campo-configuracion">
+
+            <label for="config-categoria">
+                ⚽ Categoría
+            </label>
+
+            <select id="config-categoria">
+
+                <option value="mundiales">
+                    🌎 Mundiales
+                </option>
+
+                <option value="champions">
+                    🏆 Champions League
+                </option>
+
+                <option value="premier-league">
+                    🏴 Premier League
+                </option>
+
+                <option value="laliga">
+                    🇪🇸 LaLiga
+                </option>
+
+                <option value="ligue-1">
+                    🇫🇷 Ligue 1
+                </option>
+
+                <option value="serie-a">
+                    🇮🇹 Serie A
+                </option>
+
+                <option value="cinco-grandes-ligas">
+                    🌍 Las 5 grandes ligas
+                </option>
+
+                <option value="futbol-chileno">
+                    🇨🇱 Fútbol chileno
+                </option>
+
+                <option value="colo-colo">
+                    ⚪⚫ Colo-Colo
+                </option>
+
+                <option value="libertadores">
+                    🏆 Libertadores
+                </option>
+
+                <option value="jugadores">
+                    👤 Jugadores
+                </option>
+
+                <option value="historia">
+                    📜 Historia
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DIFICULTAD
+             ================================================= -->
+
+        <div class="campo-configuracion">
+
+            <label for="config-dificultad">
+                🎯 Dificultad
+            </label>
+
+            <select id="config-dificultad">
+
+                <!-- IMPORTANTE:
+                     El JS utiliza "todos" -->
+
+                <option value="todos">
+                    🎲 Todas las dificultades
+                </option>
+
+                <option value="facil">
+                    🟢 Fácil — 1 punto
+                </option>
+
+                <option value="medio">
+                    🟡 Medio — 2 puntos
+                </option>
+
+                <option value="dificil">
+                    🔴 Difícil — 3 puntos
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TIPO DE PREGUNTA
+             ================================================= -->
+
+        <div class="campo-configuracion">
+
+            <label for="config-tipo">
+                🧠 Tipo de pregunta
+            </label>
+
+            <select id="config-tipo">
+
+                <!-- "ambos" = combinación de todos
+                     los tipos de pregunta -->
+
+                <option value="ambos">
+                    🎲 Ambos tipos
+                </option>
+
+                <option value="4-opciones">
+                    🔵 4 alternativas
+                </option>
+
+                <option value="2-opciones">
+                    🟣 2 alternativas
+                </option>
+
+                <option value="verdadero-falso">
+                    ✅❌ Verdadero o falso
+                </option>
+
+                <option value="oral">
+                    🗣️ Respuesta oral
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MODO DE RESPUESTA
+             ================================================= -->
+
+        <div class="campo-configuracion">
+
+            <label for="config-modo">
+                🎮 Modo de respuesta
+            </label>
+
+            <select id="config-modo">
+
+                <option value="automatico">
+                    🎮 Automático
+                </option>
+
+                <option value="oral">
+                    🗣️ Oral
+                </option>
+
+                <option value="ambos">
+                    🎲 Ambos modos
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CANTIDAD
+             ================================================= -->
+
+        <div class="campo-configuracion">
+
+            <label for="config-cantidad">
+                📋 Cantidad de preguntas
+            </label>
+
+            <select id="config-cantidad">
+
+                <option value="5">
+                    5 preguntas
+                </option>
+
+                <option value="10">
+                    10 preguntas
+                </option>
+
+                <option value="25">
+                    25 preguntas
+                </option>
+
+                <option value="50">
+                    50 preguntas
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BOTÓN GENERAR
+             ================================================= -->
+
+        <button
+            class="boton-generar"
+            onclick="iniciarPartidaConfigurada()"
         >
 
+            <span>
+                🚀
+            </span>
 
+            <strong>
+                GENERAR PARTIDA
+            </strong>
 
-        <!-- CATEGORÍA -->
+            <span>
+                →
+            </span>
 
-        <label for="config-categoria">
-            ⚽ Categoría
-        </label>
-
-        <select id="config-categoria">
-
-            <option value="champions">
-                🏆 Champions League
-            </option>
-
-            <option value="premier-league">
-                🏴 Premier League
-            </option>
-
-            <option value="laliga">
-                🇪🇸 LaLiga
-            </option>
-
-            <option value="ligue-1">
-                🇫🇷 Ligue 1
-            </option>
-
-            <option value="serie-a">
-                🇮🇹 Serie A
-            </option>
-
-            <option value="cinco-grandes-ligas">
-                🌍 Las 5 grandes ligas
-            </option>
-
-            <option value="futbol-chileno">
-                🇨🇱 Fútbol chileno
-            </option>
-
-            <option value="colo-colo">
-                ⚪⚫ Colo-Colo
-            </option>
-
-            <option value="libertadores">
-                🏆 Libertadores
-            </option>
-
-            <option value="mundiales">
-                🌎 Mundiales
-            </option>
-
-            <option value="jugadores">
-                👤 Jugadores
-            </option>
-
-            <option value="historia">
-                📜 Historia
-            </option>
-
-        </select>
-
-
-
-        <!-- DIFICULTAD -->
-
-        <label for="config-dificultad">
-            🎯 Dificultad
-        </label>
-
-        <select id="config-dificultad">
-
-            <option value="todos">
-                🔀 Todas
-            </option>
-
-            <option value="facil">
-                🟢 Fácil — 1 punto
-            </option>
-
-            <option value="medio">
-                🟡 Medio — 2 puntos
-            </option>
-
-            <option value="dificil">
-                🔴 Difícil — 3 puntos
-            </option>
-
-        </select>
-
-
-
-        <!-- TIPO -->
-
-        <label for="config-tipo">
-            📝 Tipo de pregunta
-        </label>
-
-        <select id="config-tipo">
-
-            <option value="todos">
-                🔀 Todos
-            </option>
-
-            <option value="4-opciones">
-                4 alternativas
-            </option>
-
-            <option value="verdadero-falso">
-                Verdadero / Falso
-            </option>
-
-        </select>
-
-
-
-        <!-- MODO -->
-
-        <label for="config-modo">
-            🎮 Modo de respuesta
-        </label>
-
-        <select id="config-modo">
-
-            <option value="automatico">
-                🔀 Automático
-            </option>
-
-            <option value="alternativas">
-                📝 Alternativas
-            </option>
-
-            <option value="oral">
-                🗣️ Respuesta oral
-            </option>
-
-        </select>
-
-
-
-        <!-- CANTIDAD -->
-
-        <label for="config-cantidad">
-            🔢 Cantidad de preguntas
-        </label>
-
-        <select id="config-cantidad">
-
-            <option value="5">
-                5 preguntas
-            </option>
-
-            <option value="10">
-                10 preguntas
-            </option>
-
-            <option value="25">
-                25 preguntas
-            </option>
-
-            <option value="50">
-                50 preguntas
-            </option>
-
-        </select>
-
-
-
-        <!-- GENERAR -->
-
-        <button onclick="iniciarPartidaConfigurada()">
-            🤖 GENERAR PREGUNTAS CON IA
         </button>
 
 
-        <button onclick="volverMenu()">
-            ← VOLVER
+
+        <!-- =================================================
+             VOLVER
+             ================================================= -->
+
+        <button
+            class="boton-secundario"
+            onclick="volverMenu()"
+        >
+
+            ← VOLVER AL MENÚ
+
         </button>
 
-    </div>
+    </main>
 
 
 
-    <!-- =====================================
+    <!-- =====================================================
          QUIZ
-         ===================================== -->
+         ===================================================== -->
 
-    <div
+    <main
         id="quiz"
-        style="display:none;"
+        class="pantalla"
+        style="display: none;"
     >
 
-    </div>
+    </main>
 
 
 
-    <!-- =====================================
+    <!-- =====================================================
          RANKING
-         ===================================== -->
+         ===================================================== -->
 
-    <div
+    <main
         id="ranking"
-        style="display:none;"
+        class="pantalla"
+        style="display: none;"
     >
 
-        <h1>
-            🏆 RANKING
-        </h1>
+        <section class="ranking-header">
 
-        <p>
-            Mejores puntuaciones guardadas en este dispositivo
-        </p>
+            <div class="ranking-trofeo">
+                🏆
+            </div>
+
+            <h1>
+                RANKING
+            </h1>
+
+            <p>
+                Los mejores jugadores de DTF
+            </p>
+
+        </section>
 
 
-        <!-- 5 -->
 
-        <div class="ranking-seccion">
+        <!-- =================================================
+             RANKING 5
+             ================================================= -->
 
-            <h2>
-                🥇 5 PREGUNTAS
-            </h2>
+        <section class="ranking-seccion">
+
+            <div class="ranking-seccion-header">
+
+                <h2>
+                    ⚡ 5 preguntas
+                </h2>
+
+                <span>
+                    TOP 10
+                </span>
+
+            </div>
 
             <div id="ranking-5">
-                <p>No hay partidas todavía.</p>
+
+                <p>
+                    No hay partidas todavía.
+                </p>
+
             </div>
 
-        </div>
+        </section>
 
 
-        <!-- 10 -->
 
-        <div class="ranking-seccion">
+        <!-- =================================================
+             RANKING 10
+             ================================================= -->
 
-            <h2>
-                🥇 10 PREGUNTAS
-            </h2>
+        <section class="ranking-seccion">
+
+            <div class="ranking-seccion-header">
+
+                <h2>
+                    🔥 10 preguntas
+                </h2>
+
+                <span>
+                    TOP 10
+                </span>
+
+            </div>
 
             <div id="ranking-10">
-                <p>No hay partidas todavía.</p>
+
+                <p>
+                    No hay partidas todavía.
+                </p>
+
             </div>
 
-        </div>
+        </section>
 
 
-        <!-- 25 -->
 
-        <div class="ranking-seccion">
+        <!-- =================================================
+             RANKING 25
+             ================================================= -->
 
-            <h2>
-                🥇 25 PREGUNTAS
-            </h2>
+        <section class="ranking-seccion">
+
+            <div class="ranking-seccion-header">
+
+                <h2>
+                    💪 25 preguntas
+                </h2>
+
+                <span>
+                    TOP 10
+                </span>
+
+            </div>
 
             <div id="ranking-25">
-                <p>No hay partidas todavía.</p>
+
+                <p>
+                    No hay partidas todavía.
+                </p>
+
             </div>
 
-        </div>
+        </section>
 
 
-        <!-- 50 -->
 
-        <div class="ranking-seccion">
+        <!-- =================================================
+             RANKING 50
+             ================================================= -->
 
-            <h2>
-                🥇 50 PREGUNTAS
-            </h2>
+        <section class="ranking-seccion">
+
+            <div class="ranking-seccion-header">
+
+                <h2>
+                    👑 50 preguntas
+                </h2>
+
+                <span>
+                    TOP 10
+                </span>
+
+            </div>
 
             <div id="ranking-50">
-                <p>No hay partidas todavía.</p>
+
+                <p>
+                    No hay partidas todavía.
+                </p>
+
             </div>
 
-        </div>
+        </section>
 
 
-        <button onclick="volverMenu()">
+
+        <!-- =================================================
+             VOLVER
+             ================================================= -->
+
+        <button
+            class="boton-secundario"
+            onclick="volverMenu()"
+        >
+
             ← VOLVER AL MENÚ
+
         </button>
 
-    </div>
+    </main>
 
-    <!-- =====================================
-         JAVASCRIPT PRINCIPAL
-         ===================================== -->
+
+
+    <!-- =====================================================
+         SCRIPT PRINCIPAL
+         ===================================================== -->
 
     <script src="script.js"></script>
 

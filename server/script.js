@@ -3,6 +3,7 @@
 // SCRIPT PRINCIPAL
 // ==========================================
 
+
 // ==========================================
 // VARIABLES
 // ==========================================
@@ -13,26 +14,35 @@ let preguntasPartida = [];
 
 let nombreJugador = "";
 let cantidadPartida = 0;
+
+let dificultadPartida = "ambos";
+let tipoPartida = "ambos";
 let modoPartida = "automatico";
+
+let respuestaOralRevelada = false;
 
 
 // ==========================================
 // ELEMENTOS
 // ==========================================
 
-const menu = document.getElementById("menu");
+const menu =
+    document.getElementById("menu");
 
-const quiz = document.getElementById("quiz");
+const quiz =
+    document.getElementById("quiz");
 
 const configuracion =
-    document.getElementById("configuracion-partida");
+    document.getElementById(
+        "configuracion-partida"
+    );
 
 const ranking =
     document.getElementById("ranking");
 
 
 // ==========================================
-// PUNTOS SEGÚN DIFICULTAD
+// PUNTOS
 // ==========================================
 
 function obtenerPuntos(dificultad) {
@@ -51,6 +61,109 @@ function obtenerPuntos(dificultad) {
         default:
             return 1;
     }
+}
+
+
+// ==========================================
+// DIFICULTADES VÁLIDAS
+// ==========================================
+
+function dificultadValida(valor) {
+
+    return [
+        "facil",
+        "medio",
+        "dificil"
+    ].includes(valor);
+}
+
+
+// ==========================================
+// TIPOS VÁLIDOS
+// ==========================================
+
+function tipoValido(valor) {
+
+    return [
+        "4-opciones",
+        "2-opciones",
+        "verdadero-falso",
+        "oral"
+    ].includes(valor);
+}
+
+
+// ==========================================
+// MODOS VÁLIDOS
+// ==========================================
+
+function modoValido(valor) {
+
+    return [
+        "automatico",
+        "oral"
+    ].includes(valor);
+}
+
+
+// ==========================================
+// DIFICULTAD ALEATORIA
+// ==========================================
+
+function obtenerDificultadAleatoria() {
+
+    const dificultades = [
+        "facil",
+        "medio",
+        "dificil"
+    ];
+
+    return dificultades[
+        Math.floor(
+            Math.random() *
+            dificultades.length
+        )
+    ];
+}
+
+
+// ==========================================
+// TIPO ALEATORIO
+// ==========================================
+//
+// IMPORTANTE:
+// "ambos" NO significa "todos".
+// Aquí mezclamos solamente los tipos
+// de pregunta automáticos.
+// El modo oral se controla aparte.
+// ==========================================
+
+function obtenerTipoAleatorio() {
+
+    const tipos = [
+        "4-opciones",
+        "2-opciones",
+        "verdadero-falso"
+    ];
+
+    return tipos[
+        Math.floor(
+            Math.random() *
+            tipos.length
+        )
+    ];
+}
+
+
+// ==========================================
+// MODO ALEATORIO
+// ==========================================
+
+function obtenerModoAleatorio() {
+
+    return Math.random() < 0.5
+        ? "automatico"
+        : "oral";
 }
 
 
@@ -123,33 +236,92 @@ function obtenerNombreDificultad(dificultad) {
 
     };
 
-    return dificultades[dificultad] || "Dificultad";
+    return dificultades[dificultad]
+        || "Dificultad";
 }
 
 
 // ==========================================
-// NOMBRE DEL TIPO
+// NOMBRE DE TIPO
 // ==========================================
 
 function obtenerNombreTipo(tipo) {
 
-    if (tipo === "4-opciones") {
-        return "4 ALTERNATIVAS";
+    switch (tipo) {
+
+        case "4-opciones":
+            return "4 ALTERNATIVAS";
+
+        case "2-opciones":
+            return "2 ALTERNATIVAS";
+
+        case "verdadero-falso":
+            return "VERDADERO O FALSO";
+
+        case "oral":
+            return "RESPUESTA ORAL";
+
+        default:
+            return "PREGUNTA";
+    }
+}
+
+
+// ==========================================
+// NOMBRE DE CONFIGURACIÓN
+// ==========================================
+
+function obtenerNombreConfiguracion(
+    dificultad,
+    tipo,
+    modo
+) {
+
+    const dificultadTexto =
+        dificultad === "ambos"
+            ? "🎲 Dificultad mixta"
+            : obtenerNombreDificultad(
+                dificultad
+            );
+
+
+    const tipoTexto =
+        tipo === "ambos"
+            ? "🎲 Tipos mixtos"
+            : obtenerNombreTipo(
+                tipo
+            );
+
+
+    let modoTexto;
+
+    if (modo === "ambos") {
+
+        modoTexto =
+            "🎲 Modos mixtos";
+
+    }
+    else if (modo === "oral") {
+
+        modoTexto =
+            "🗣️ Modo oral";
+
+    }
+    else {
+
+        modoTexto =
+            "🎮 Modo automático";
+
     }
 
-    if (tipo === "2-opciones") {
-        return "2 ALTERNATIVAS";
-    }
 
-    if (tipo === "verdadero-falso") {
-        return "VERDADERO O FALSO";
-    }
-
-    if (tipo === "oral") {
-        return "RESPUESTA ORAL";
-    }
-
-    return "PREGUNTA";
+    return `
+        ${dificultadTexto}
+        ·
+        ${tipoTexto}
+        ·
+        ${modoTexto}
+    `;
 }
 
 
@@ -159,13 +331,21 @@ function obtenerNombreTipo(tipo) {
 
 function mostrarConfiguracion() {
 
-    menu.style.display = "none";
+    if (menu) {
+        menu.style.display = "none";
+    }
 
-    quiz.style.display = "none";
+    if (quiz) {
+        quiz.style.display = "none";
+    }
 
-    ranking.style.display = "none";
+    if (ranking) {
+        ranking.style.display = "none";
+    }
 
-    configuracion.style.display = "block";
+    if (configuracion) {
+        configuracion.style.display = "block";
+    }
 }
 
 
@@ -175,91 +355,204 @@ function mostrarConfiguracion() {
 
 function volverMenu() {
 
-    menu.style.display = "block";
+    if (menu) {
+        menu.style.display = "block";
+    }
 
-    configuracion.style.display = "none";
+    if (configuracion) {
+        configuracion.style.display = "none";
+    }
 
-    quiz.style.display = "none";
+    if (quiz) {
+        quiz.style.display = "none";
+    }
 
-    ranking.style.display = "none";
+    if (ranking) {
+        ranking.style.display = "none";
+    }
+
+    // Reiniciar partida actual
+
+    preguntaActual = 0;
+    puntaje = 0;
+    preguntasPartida = [];
 }
 
 
 // ==========================================
-// GENERAR PARTIDA CON IA
+// GENERAR PARTIDA
 // ==========================================
 
 async function iniciarPartidaConfigurada() {
 
-    // --------------------------------------
-    // OBTENER CONFIGURACIÓN
-    // --------------------------------------
-
     const nombreInput =
-        document.getElementById("config-nombre");
+        document.getElementById(
+            "config-nombre"
+        );
 
-    const categoria =
-        document.getElementById("config-categoria").value;
+    const categoriaElement =
+        document.getElementById(
+            "config-categoria"
+        );
 
-    const dificultad =
-        document.getElementById("config-dificultad").value;
+    const dificultadElement =
+        document.getElementById(
+            "config-dificultad"
+        );
 
-    const tipo =
-        document.getElementById("config-tipo").value;
+    const tipoElement =
+        document.getElementById(
+            "config-tipo"
+        );
 
-    const modo =
-        document.getElementById("config-modo").value;
+    const modoElement =
+        document.getElementById(
+            "config-modo"
+        );
 
-    const cantidadSeleccionada =
-        document.getElementById("config-cantidad").value;
-
-
-    // --------------------------------------
-    // VALIDAR NOMBRE
-    // --------------------------------------
-
-    nombreJugador =
-        nombreInput
-            ? nombreInput.value.trim()
-            : "";
+    const cantidadElement =
+        document.getElementById(
+            "config-cantidad"
+        );
 
 
-    if (!nombreJugador) {
+    // ======================================
+    // COMPROBAR ELEMENTOS
+    // ======================================
 
-        alert("👤 Escribe tu nombre antes de jugar.");
+    if (
+        !nombreInput ||
+        !categoriaElement ||
+        !dificultadElement ||
+        !tipoElement ||
+        !modoElement ||
+        !cantidadElement
+    ) {
 
-        if (nombreInput) {
-            nombreInput.focus();
-        }
+        alert(
+            "❌ Falta un elemento de configuración en el index.html."
+        );
 
         return;
     }
 
 
-    // Limitar nombre
+    // ======================================
+    // OBTENER VALORES
+    // ======================================
 
     nombreJugador =
-        nombreJugador.substring(0, 20);
+        nombreInput.value
+            .trim()
+            .substring(0, 20);
 
 
-    // --------------------------------------
-    // CANTIDAD
-    // --------------------------------------
+    const categoria =
+        categoriaElement.value;
+
+    const dificultad =
+        dificultadElement.value;
+
+    const tipo =
+        tipoElement.value;
+
+    const modo =
+        modoElement.value;
 
     cantidadPartida =
-        parseInt(cantidadSeleccionada);
+        parseInt(
+            cantidadElement.value,
+            10
+        );
 
 
-    // --------------------------------------
-    // GUARDAR MODO
-    // --------------------------------------
+    // ======================================
+    // VALIDAR NOMBRE
+    // ======================================
 
-    modoPartida = modo;
+    if (!nombreJugador) {
+
+        alert(
+            "👤 Escribe tu nombre antes de jugar."
+        );
+
+        nombreInput.focus();
+
+        return;
+    }
 
 
-    // --------------------------------------
+    // ======================================
+    // VALIDAR CONFIGURACIÓN
+    // ======================================
+
+    if (
+        ![
+            "facil",
+            "medio",
+            "dificil",
+            "ambos"
+        ].includes(dificultad)
+    ) {
+
+        alert(
+            "❌ La dificultad seleccionada no es válida."
+        );
+
+        return;
+    }
+
+
+    if (
+        ![
+            "4-opciones",
+            "2-opciones",
+            "verdadero-falso",
+            "ambos"
+        ].includes(tipo)
+    ) {
+
+        alert(
+            "❌ El tipo de pregunta seleccionado no es válido."
+        );
+
+        return;
+    }
+
+
+    if (
+        ![
+            "automatico",
+            "oral",
+            "ambos"
+        ].includes(modo)
+    ) {
+
+        alert(
+            "❌ El modo seleccionado no es válido."
+        );
+
+        return;
+    }
+
+
+    // ======================================
+    // GUARDAR CONFIGURACIÓN
+    // ======================================
+
+    dificultadPartida =
+        dificultad;
+
+    tipoPartida =
+        tipo;
+
+    modoPartida =
+        modo;
+
+
+    // ======================================
     // PREPARAR PANTALLA
-    // --------------------------------------
+    // ======================================
 
     menu.style.display = "none";
 
@@ -279,7 +572,9 @@ async function iniciarPartidaConfigurada() {
             </h2>
 
             <p>
-                Hola ${escapeHTML(nombreJugador)} 👋
+                Hola
+                ${escapeHTML(nombreJugador)}
+                👋
             </p>
 
             <p>
@@ -288,15 +583,22 @@ async function iniciarPartidaConfigurada() {
             </p>
 
             <p>
-                ${obtenerNombreCategoria(categoria)}
+                ${obtenerNombreCategoria(
+                    categoria
+                )}
             </p>
 
             <p>
-                ${obtenerNombreDificultad(dificultad)}
+                ${obtenerNombreConfiguracion(
+                    dificultad,
+                    tipo,
+                    modo
+                )}
             </p>
 
             <p>
-                ${cantidadPartida} preguntas
+                ${cantidadPartida}
+                preguntas
             </p>
 
         </div>
@@ -304,11 +606,34 @@ async function iniciarPartidaConfigurada() {
     `;
 
 
+    // ======================================
+    // CONFIGURACIÓN QUE SE ENVÍA AL SERVIDOR
+    // ======================================
+    //
+    // La interfaz usa "ambos".
+    //
+    // Para mejorar compatibilidad con
+    // servidores que esperan "todos",
+    // enviamos "todos" solamente al backend.
+    //
+    // ======================================
+
+    const dificultadServidor =
+        dificultad === "ambos"
+            ? "todos"
+            : dificultad;
+
+    const tipoServidor =
+        tipo === "ambos"
+            ? "todos"
+            : tipo;
+
+
     try {
 
-        // ----------------------------------
-        // LLAMAR A TU SERVIDOR
-        // ----------------------------------
+        // ==================================
+        // FETCH
+        // ==================================
 
         const respuesta =
             await fetch(
@@ -318,8 +643,10 @@ async function iniciarPartidaConfigurada() {
                     method: "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
+
                     },
 
                     body:
@@ -329,10 +656,10 @@ async function iniciarPartidaConfigurada() {
                                 categoria,
 
                             dificultad:
-                                dificultad,
+                                dificultadServidor,
 
                             tipo:
-                                tipo,
+                                tipoServidor,
 
                             cantidad:
                                 cantidadPartida,
@@ -346,13 +673,30 @@ async function iniciarPartidaConfigurada() {
             );
 
 
-        const datos =
-            await respuesta.json();
+        // ==================================
+        // LEER RESPUESTA
+        // ==================================
+
+        let datos;
+
+        try {
+
+            datos =
+                await respuesta.json();
+
+        }
+        catch {
+
+            throw new Error(
+                "El servidor no devolvió una respuesta válida."
+            );
+
+        }
 
 
-        // ----------------------------------
-        // ERROR DEL SERVIDOR
-        // ----------------------------------
+        // ==================================
+        // ERROR HTTP
+        // ==================================
 
         if (!respuesta.ok) {
 
@@ -360,125 +704,450 @@ async function iniciarPartidaConfigurada() {
                 datos.error ||
                 "El servidor devolvió un error."
             );
+
         }
 
 
-        // ----------------------------------
-        // VALIDAR RESPUESTA
-        // ----------------------------------
+        // ==================================
+        // VALIDAR ARRAY
+        // ==================================
 
         if (
             !datos.preguntas ||
-            !Array.isArray(datos.preguntas) ||
+            !Array.isArray(
+                datos.preguntas
+            ) ||
             datos.preguntas.length === 0
         ) {
 
             throw new Error(
-                "La IA no devolvió preguntas válidas."
+                "La IA no devolvió preguntas."
             );
+
         }
 
 
-        // ----------------------------------
+        // ==================================
         // PREPARAR PREGUNTAS
-        // ----------------------------------
+        // ==================================
 
         preguntasPartida =
             datos.preguntas
-                .map((pregunta, index) => {
+                .map(
+                    (pregunta, index) => {
 
-                    return {
+                        // ------------------
+                        // DIFICULTAD
+                        // ------------------
 
-                        id:
-                            "ia-" +
-                            Date.now() +
-                            "-" +
-                            index,
+                        let dificultadPregunta =
+                            String(
+                                pregunta.dificultad ||
+                                ""
+                            )
+                            .toLowerCase()
+                            .trim();
 
-                        tipo:
-                            pregunta.tipo ||
-                            (
-                                tipo !== "todos"
-                                    ? tipo
-                                    : "4-opciones"
-                            ),
 
-                        categoria:
-                            pregunta.categoria ||
-                            categoria,
+                        if (
+                            !dificultadValida(
+                                dificultadPregunta
+                            )
+                        ) {
 
-                        dificultad:
-                            pregunta.dificultad ||
-                            (
-                                dificultad !== "todos"
-                                    ? dificultad
-                                    : "medio"
-                            ),
+                            if (
+                                dificultadPartida ===
+                                "ambos"
+                            ) {
 
-                        pregunta:
-                            pregunta.pregunta,
+                                dificultadPregunta =
+                                    obtenerDificultadAleatoria();
 
-                        opciones:
+                            }
+                            else {
+
+                                dificultadPregunta =
+                                    dificultadPartida;
+
+                            }
+
+                        }
+
+
+                        // ------------------
+                        // TIPO
+                        // ------------------
+
+                        let tipoPregunta =
+                            String(
+                                pregunta.tipo ||
+                                ""
+                            )
+                            .toLowerCase()
+                            .trim();
+
+
+                        // Aceptar posibles nombres
+                        // enviados por el servidor.
+
+                        if (
+                            tipoPregunta ===
+                            "4"
+                        ) {
+
+                            tipoPregunta =
+                                "4-opciones";
+
+                        }
+
+                        if (
+                            tipoPregunta ===
+                            "2"
+                        ) {
+
+                            tipoPregunta =
+                                "2-opciones";
+
+                        }
+
+                        if (
+                            tipoPregunta ===
+                            "vf"
+                        ) {
+
+                            tipoPregunta =
+                                "verdadero-falso";
+
+                        }
+
+                        if (
+                            tipoPregunta ===
+                            "verdadero_falso"
+                        ) {
+
+                            tipoPregunta =
+                                "verdadero-falso";
+
+                        }
+
+
+                        // Si seleccionamos ambos
+                        // y la IA no indica un tipo,
+                        // elegimos uno aleatoriamente.
+
+                        if (
+                            !tipoValido(
+                                tipoPregunta
+                            )
+                        ) {
+
+                            if (
+                                tipoPartida ===
+                                "ambos"
+                            ) {
+
+                                tipoPregunta =
+                                    obtenerTipoAleatorio();
+
+                            }
+                            else {
+
+                                tipoPregunta =
+                                    tipoPartida;
+
+                            }
+
+                        }
+
+
+                        // Si tipoPartida es ambos,
+                        // NO permitimos que la IA
+                        // meta "oral" como tipo.
+                        //
+                        // El oral lo controla
+                        // modoPartida.
+
+                        if (
+                            tipoPartida ===
+                                "ambos" &&
+                            tipoPregunta ===
+                                "oral"
+                        ) {
+
+                            tipoPregunta =
+                                obtenerTipoAleatorio();
+
+                        }
+
+
+                        // ------------------
+                        // MODO
+                        // ------------------
+
+                        let modoPregunta;
+
+
+                        if (
+                            modoPartida ===
+                            "ambos"
+                        ) {
+
+                            modoPregunta =
+                                obtenerModoAleatorio();
+
+                        }
+                        else {
+
+                            modoPregunta =
+                                modoPartida;
+
+                        }
+
+
+                        // ------------------
+                        // OPCIONES
+                        // ------------------
+
+                        let opciones =
                             Array.isArray(
                                 pregunta.opciones
                             )
                                 ? pregunta.opciones
-                                : [],
+                                : [];
 
-                        correcta:
+
+                        opciones =
+                            opciones.map(
+                                opcion =>
+                                    String(opcion)
+                            );
+
+
+                        // ------------------
+                        // VERDADERO / FALSO
+                        // ------------------
+
+                        if (
+                            tipoPregunta ===
+                            "verdadero-falso"
+                        ) {
+
+                            opciones = [
+                                "VERDADERO",
+                                "FALSO"
+                            ];
+
+                        }
+
+
+                        // ------------------
+                        // 2 OPCIONES
+                        // ------------------
+
+                        if (
+                            tipoPregunta ===
+                            "2-opciones"
+                        ) {
+
+                            if (
+                                opciones.length >
+                                2
+                            ) {
+
+                                opciones =
+                                    opciones.slice(
+                                        0,
+                                        2
+                                    );
+
+                            }
+
+                        }
+
+
+                        // ------------------
+                        // 4 OPCIONES
+                        // ------------------
+
+                        if (
+                            tipoPregunta ===
+                            "4-opciones"
+                        ) {
+
+                            if (
+                                opciones.length >
+                                4
+                            ) {
+
+                                opciones =
+                                    opciones.slice(
+                                        0,
+                                        4
+                                    );
+
+                            }
+
+                        }
+
+
+                        // ------------------
+                        // CORRECTA
+                        // ------------------
+
+                        let correcta =
                             Number(
                                 pregunta.correcta
-                            ),
+                            );
 
-                        explicacion:
-                            pregunta.explicacion ||
-                            ""
 
-                    };
+                        // ------------------
+                        // OBJETO FINAL
+                        // ------------------
 
-                })
-                .filter(pregunta => {
+                        return {
 
-                    return (
-                        pregunta.pregunta &&
-                        pregunta.opciones.length > 0 &&
-                        Number.isInteger(
-                            pregunta.correcta
-                        ) &&
-                        pregunta.correcta >= 0 &&
-                        pregunta.correcta <
+                            id:
+                                "ia-" +
+                                Date.now() +
+                                "-" +
+                                index,
+
+                            tipo:
+                                tipoPregunta,
+
+                            categoria:
+                                pregunta.categoria ||
+                                categoria,
+
+                            dificultad:
+                                dificultadPregunta,
+
+                            modoRespuesta:
+                                modoPregunta,
+
+                            pregunta:
+                                String(
+                                    pregunta.pregunta ||
+                                    ""
+                                ),
+
+                            opciones:
+                                opciones,
+
+                            correcta:
+                                correcta,
+
+                            explicacion:
+                                String(
+                                    pregunta.explicacion ||
+                                    ""
+                                )
+
+                        };
+
+                    }
+                )
+                .filter(
+                    pregunta => {
+
+                        // ------------------
+                        // PREGUNTA
+                        // ------------------
+
+                        if (
+                            !pregunta.pregunta
+                        ) {
+
+                            return false;
+
+                        }
+
+
+                        // ------------------
+                        // OPCIONES
+                        // ------------------
+
+                        if (
+                            !Array.isArray(
+                                pregunta.opciones
+                            ) ||
+                            pregunta.opciones.length === 0
+                        ) {
+
+                            return false;
+
+                        }
+
+
+                        // ------------------
+                        // CORRECTA
+                        // ------------------
+
+                        if (
+                            !Number.isInteger(
+                                pregunta.correcta
+                            )
+                        ) {
+
+                            return false;
+
+                        }
+
+
+                        if (
+                            pregunta.correcta < 0 ||
+                            pregunta.correcta >=
                             pregunta.opciones.length
-                    );
+                        ) {
 
-                });
+                            return false;
+
+                        }
 
 
-        // ----------------------------------
+                        return true;
+
+                    }
+                );
+
+
+        // ==================================
         // VALIDAR CANTIDAD
-        // ----------------------------------
+        // ==================================
 
-        if (preguntasPartida.length === 0) {
+        if (
+            preguntasPartida.length === 0
+        ) {
 
             throw new Error(
                 "Las preguntas recibidas no tienen un formato válido."
             );
+
         }
 
 
-        // Si la IA devuelve menos preguntas,
-        // usamos las que realmente llegaron.
+        // ==================================
+        // USAR CANTIDAD REAL
+        // ==================================
 
         cantidadPartida =
             preguntasPartida.length;
 
 
-        // ----------------------------------
-        // INICIAR PARTIDA
-        // ----------------------------------
+        // ==================================
+        // REINICIAR PARTIDA
+        // ==================================
 
         preguntaActual = 0;
 
         puntaje = 0;
+
+        respuestaOralRevelada = false;
+
+
+        // ==================================
+        // MOSTRAR
+        // ==================================
 
         mostrarPregunta();
 
@@ -503,11 +1172,14 @@ async function iniciarPartidaConfigurada() {
                 </h2>
 
                 <p>
-                    ${escapeHTML(error.message)}
+                    ${escapeHTML(
+                        error.message
+                    )}
                 </p>
 
                 <button
-                    onclick="volverMenu()">
+                    onclick="volverMenu()"
+                >
 
                     ← VOLVER AL MENÚ
 
@@ -529,25 +1201,36 @@ async function iniciarPartidaConfigurada() {
 function mostrarPregunta() {
 
     const pregunta =
-        preguntasPartida[preguntaActual];
+        preguntasPartida[
+            preguntaActual
+        ];
 
 
-    // --------------------------------------
-    // FIN DEL QUIZ
-    // --------------------------------------
+    // ======================================
+    // FIN
+    // ======================================
 
     if (!pregunta) {
 
         mostrarResultadoFinal();
 
         return;
+
     }
+
+
+    respuestaOralRevelada = false;
 
 
     const puntosPregunta =
         obtenerPuntos(
             pregunta.dificultad
         );
+
+
+    const esOral =
+        pregunta.modoRespuesta ===
+        "oral";
 
 
     let html = `
@@ -584,24 +1267,34 @@ function mostrarPregunta() {
             )}
 
             ·
+
             ${puntosPregunta}
-            ${puntosPregunta === 1 ? "punto" : "puntos"}
+
+            ${
+                puntosPregunta === 1
+                    ? "punto"
+                    : "puntos"
+            }
 
         </div>
 
 
         <h2>
-            ${escapeHTML(pregunta.pregunta)}
+
+            ${escapeHTML(
+                pregunta.pregunta
+            )}
+
         </h2>
 
     `;
 
 
     // ======================================
-    // RESPUESTA ORAL
+    // MODO ORAL
     // ======================================
 
-    if (modoPartida === "oral") {
+    if (esOral) {
 
         html += `
 
@@ -616,16 +1309,19 @@ function mostrarPregunta() {
                 </h3>
 
                 <p>
-                    Piensa tu respuesta antes
-                    de revelar la solución.
+                    Piensa tu respuesta
+                    antes de revelar
+                    la solución.
                 </p>
 
             </div>
 
 
             <button
+                id="revelar-oral-btn"
                 class="siguiente-btn"
-                onclick="revelarRespuestaOral()">
+                onclick="revelarRespuestaOral()"
+            >
 
                 👀 REVELAR RESPUESTA
 
@@ -644,7 +1340,8 @@ function mostrarPregunta() {
     // ======================================
 
     else if (
-        pregunta.tipo === "verdadero-falso"
+        pregunta.tipo ===
+        "verdadero-falso"
     ) {
 
         html += `
@@ -653,7 +1350,8 @@ function mostrarPregunta() {
 
                 <button
                     class="opcion"
-                    onclick="responder(0)">
+                    onclick="responder(0)"
+                >
 
                     VERDADERO
 
@@ -662,7 +1360,8 @@ function mostrarPregunta() {
 
                 <button
                     class="opcion"
-                    onclick="responder(1)">
+                    onclick="responder(1)"
+                >
 
                     FALSO
 
@@ -677,7 +1376,8 @@ function mostrarPregunta() {
             <button
                 id="siguiente-btn"
                 onclick="siguientePregunta()"
-                style="display:none;">
+                style="display:none;"
+            >
 
                 SIGUIENTE →
 
@@ -689,7 +1389,7 @@ function mostrarPregunta() {
 
 
     // ======================================
-    // ALTERNATIVAS
+    // PREGUNTA NORMAL
     // ======================================
 
     else {
@@ -708,9 +1408,12 @@ function mostrarPregunta() {
 
                     <button
                         class="opcion"
-                        onclick="responder(${index})">
+                        onclick="responder(${index})"
+                    >
 
-                        ${escapeHTML(opcion)}
+                        ${escapeHTML(
+                            opcion
+                        )}
 
                     </button>
 
@@ -731,7 +1434,8 @@ function mostrarPregunta() {
             <button
                 id="siguiente-btn"
                 onclick="siguientePregunta()"
-                style="display:none;">
+                style="display:none;"
+            >
 
                 SIGUIENTE →
 
@@ -742,7 +1446,8 @@ function mostrarPregunta() {
     }
 
 
-    quiz.innerHTML = html;
+    quiz.innerHTML =
+        html;
 }
 
 
@@ -753,7 +1458,9 @@ function mostrarPregunta() {
 function responder(indice) {
 
     const pregunta =
-        preguntasPartida[preguntaActual];
+        preguntasPartida[
+            preguntaActual
+        ];
 
 
     if (!pregunta) {
@@ -762,22 +1469,38 @@ function responder(indice) {
 
 
     const botones =
-        document.querySelectorAll(".opcion");
+        document.querySelectorAll(
+            ".opcion"
+        );
 
 
     const resultado =
-        document.getElementById("resultado");
+        document.getElementById(
+            "resultado"
+        );
 
 
-    // Evitar doble respuesta
+    if (!resultado) {
+        return;
+    }
 
-    botones.forEach(boton => {
-        boton.disabled = true;
-    });
+
+    // ======================================
+    // EVITAR DOBLE RESPUESTA
+    // ======================================
+
+    botones.forEach(
+        boton => {
+
+            boton.disabled = true;
+
+        }
+    );
 
 
     const esCorrecta =
-        indice === pregunta.correcta;
+        indice ===
+        pregunta.correcta;
 
 
     const puntos =
@@ -807,7 +1530,8 @@ function responder(indice) {
         resultado.innerHTML = `
 
             <div
-                class="respuesta correcta-texto">
+                class="respuesta correcta-texto"
+            >
 
                 <h3>
                     ✅ ¡CORRECTO!
@@ -815,12 +1539,16 @@ function responder(indice) {
 
                 <p>
                     +${puntos}
-                    ${puntos === 1 ? "punto" : "puntos"}
+                    ${
+                        puntos === 1
+                            ? "punto"
+                            : "puntos"
+                    }
                 </p>
 
                 <p>
                     ${escapeHTML(
-                        pregunta.explicacion || ""
+                        pregunta.explicacion
                     )}
                 </p>
 
@@ -846,9 +1574,15 @@ function responder(indice) {
         }
 
 
-        if (botones[pregunta.correcta]) {
+        if (
+            botones[
+                pregunta.correcta
+            ]
+        ) {
 
-            botones[pregunta.correcta]
+            botones[
+                pregunta.correcta
+            ]
                 .classList
                 .add("correcta");
 
@@ -858,7 +1592,8 @@ function responder(indice) {
         resultado.innerHTML = `
 
             <div
-                class="respuesta incorrecta-texto">
+                class="respuesta incorrecta-texto"
+            >
 
                 <h3>
                     ❌ INCORRECTO
@@ -880,7 +1615,7 @@ function responder(indice) {
 
                 <p>
                     ${escapeHTML(
-                        pregunta.explicacion || ""
+                        pregunta.explicacion
                     )}
                 </p>
 
@@ -892,7 +1627,7 @@ function responder(indice) {
 
 
     // ======================================
-    // MOSTRAR SIGUIENTE
+    // SIGUIENTE
     // ======================================
 
     const siguiente =
@@ -907,6 +1642,120 @@ function responder(indice) {
             "inline-block";
 
     }
+
+}
+
+
+// ==========================================
+// REVELAR RESPUESTA ORAL
+// ==========================================
+
+function revelarRespuestaOral() {
+
+    const pregunta =
+        preguntasPartida[
+            preguntaActual
+        ];
+
+
+    if (!pregunta) {
+        return;
+    }
+
+
+    if (respuestaOralRevelada) {
+        return;
+    }
+
+
+    respuestaOralRevelada = true;
+
+
+    const resultado =
+        document.getElementById(
+            "resultado"
+        );
+
+
+    if (!resultado) {
+        return;
+    }
+
+
+    const respuesta =
+        pregunta.opciones[
+            pregunta.correcta
+        ];
+
+
+    // ======================================
+    // DESACTIVAR BOTÓN
+    // ======================================
+
+    const botonRevelar =
+        document.getElementById(
+            "revelar-oral-btn"
+        );
+
+
+    if (botonRevelar) {
+
+        botonRevelar.disabled =
+            true;
+
+        botonRevelar.style.display =
+            "none";
+
+    }
+
+
+    // ======================================
+    // MOSTRAR RESPUESTA
+    // ======================================
+
+    resultado.innerHTML = `
+
+        <div
+            class="respuesta correcta-texto oral-respuesta"
+        >
+
+            <h3>
+                💡 RESPUESTA
+            </h3>
+
+            <div
+                class="respuesta-grande"
+            >
+
+                ${escapeHTML(
+                    respuesta
+                )}
+
+            </div>
+
+
+            <p>
+
+                ${escapeHTML(
+                    pregunta.explicacion ||
+                    "No hay explicación disponible."
+                )}
+
+            </p>
+
+        </div>
+
+
+        <button
+            class="siguiente-btn"
+            onclick="siguientePregunta()"
+        >
+
+            CONTINUAR →
+
+        </button>
+
+    `;
 
 }
 
@@ -938,69 +1787,6 @@ function siguientePregunta() {
 
 
 // ==========================================
-// RESPUESTA ORAL
-// ==========================================
-
-function revelarRespuestaOral() {
-
-    const pregunta =
-        preguntasPartida[preguntaActual];
-
-
-    if (!pregunta) {
-        return;
-    }
-
-
-    const resultado =
-        document.getElementById("resultado");
-
-
-    const respuesta =
-        pregunta.opciones[
-            pregunta.correcta
-        ];
-
-
-    resultado.innerHTML = `
-
-        <div class="respuesta oral-respuesta">
-
-            <h3>
-                💡 RESPUESTA
-            </h3>
-
-            <div class="respuesta-grande">
-
-                ${escapeHTML(respuesta)}
-
-            </div>
-
-
-            <p>
-                ${escapeHTML(
-                    pregunta.explicacion ||
-                    "No hay explicación disponible."
-                )}
-            </p>
-
-        </div>
-
-
-        <button
-            class="siguiente-btn"
-            onclick="siguientePregunta()">
-
-            CONTINUAR →
-
-        </button>
-
-    `;
-
-}
-
-
-// ==========================================
 // RESULTADO FINAL
 // ==========================================
 
@@ -1010,8 +1796,9 @@ function mostrarResultadoFinal() {
         preguntasPartida.length;
 
 
-    // Máximo posible según
-    // las dificultades de las preguntas
+    // ======================================
+    // PUNTOS MÁXIMOS
+    // ======================================
 
     let puntosMaximos = 0;
 
@@ -1028,16 +1815,23 @@ function mostrarResultadoFinal() {
     );
 
 
+    // ======================================
+    // PORCENTAJE
+    // ======================================
+
     const porcentaje =
         puntosMaximos > 0
             ? Math.round(
-                (puntaje / puntosMaximos) * 100
+                (
+                    puntaje /
+                    puntosMaximos
+                ) * 100
             )
             : 0;
 
 
     // ======================================
-    // GUARDAR RANKING
+    // RANKING
     // ======================================
 
     guardarResultadoRanking(
@@ -1051,7 +1845,8 @@ function mostrarResultadoFinal() {
     // MENSAJE
     // ======================================
 
-    let mensaje = "";
+    let mensaje;
+
 
     if (porcentaje >= 90) {
 
@@ -1079,9 +1874,15 @@ function mostrarResultadoFinal() {
     }
 
 
+    // ======================================
+    // MOSTRAR RESULTADO
+    // ======================================
+
     quiz.innerHTML = `
 
-        <div class="resultado-final">
+        <div
+            class="resultado-final"
+        >
 
             <h1>
                 🏆 RESULTADO FINAL
@@ -1089,7 +1890,9 @@ function mostrarResultadoFinal() {
 
 
             <h2>
-                ${escapeHTML(nombreJugador)}
+                ${escapeHTML(
+                    nombreJugador
+                )}
             </h2>
 
 
@@ -1098,7 +1901,9 @@ function mostrarResultadoFinal() {
             </p>
 
 
-            <div class="puntaje-final">
+            <div
+                class="puntaje-final"
+            >
 
                 ${puntaje} pts
 
@@ -1116,13 +1921,18 @@ function mostrarResultadoFinal() {
             <p>
 
                 ${total}
-                ${total === 1 ? "pregunta" : "preguntas"}
+                ${
+                    total === 1
+                        ? "pregunta"
+                        : "preguntas"
+                }
 
             </p>
 
 
             <button
-                onclick="mostrarRanking()">
+                onclick="mostrarRanking()"
+            >
 
                 🏆 VER RANKING
 
@@ -1130,7 +1940,8 @@ function mostrarResultadoFinal() {
 
 
             <button
-                onclick="volverMenu()">
+                onclick="volverMenu()"
+            >
 
                 🎮 VOLVER A JUGAR
 
@@ -1144,7 +1955,7 @@ function mostrarResultadoFinal() {
 
 
 // ==========================================
-// GUARDAR RESULTADO EN RANKING
+// GUARDAR RANKING
 // ==========================================
 
 function guardarResultadoRanking(
@@ -1157,10 +1968,24 @@ function guardarResultadoRanking(
         `ranking_${cantidad}`;
 
 
-    let rankingGuardado =
-        JSON.parse(
-            localStorage.getItem(clave)
-        ) || [];
+    let rankingGuardado = [];
+
+
+    try {
+
+        rankingGuardado =
+            JSON.parse(
+                localStorage.getItem(
+                    clave
+                )
+            ) || [];
+
+    }
+    catch {
+
+        rankingGuardado = [];
+
+    }
 
 
     rankingGuardado.push({
@@ -1177,27 +2002,37 @@ function guardarResultadoRanking(
     });
 
 
-    // Ordenar de mayor a menor
-
     rankingGuardado.sort(
         (a, b) =>
             b.puntos - a.puntos
     );
 
 
-    // Guardar solamente
-    // los 10 mejores
-
     rankingGuardado =
-        rankingGuardado.slice(0, 10);
+        rankingGuardado.slice(
+            0,
+            10
+        );
 
 
-    localStorage.setItem(
-        clave,
-        JSON.stringify(
-            rankingGuardado
-        )
-    );
+    try {
+
+        localStorage.setItem(
+            clave,
+            JSON.stringify(
+                rankingGuardado
+            )
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "No se pudo guardar el ranking:",
+            error
+        );
+
+    }
 
 }
 
@@ -1210,14 +2045,17 @@ function mostrarRanking() {
 
     menu.style.display = "none";
 
-    configuracion.style.display = "none";
+    configuracion.style.display =
+        "none";
 
     quiz.style.display = "none";
 
-    ranking.style.display = "block";
+    ranking.style.display =
+        "block";
 
 
     cargarRanking();
+
 }
 
 
@@ -1245,23 +2083,41 @@ function cargarRanking() {
             }
 
 
-            const datos =
-                JSON.parse(
-                    localStorage.getItem(
-                        `ranking_${cantidad}`
-                    )
-                ) || [];
+            let datos = [];
 
 
-            if (datos.length === 0) {
+            try {
+
+                datos =
+                    JSON.parse(
+                        localStorage.getItem(
+                            `ranking_${cantidad}`
+                        )
+                    ) || [];
+
+            }
+            catch {
+
+                datos = [];
+
+            }
+
+
+            if (
+                !Array.isArray(datos) ||
+                datos.length === 0
+            ) {
 
                 contenedor.innerHTML = `
+
                     <p>
                         No hay partidas todavía.
                     </p>
+
                 `;
 
                 return;
+
             }
 
 
@@ -1275,28 +2131,36 @@ function cargarRanking() {
                 datos
                     .slice(0, 10)
                     .map(
-                        (jugador, index) => {
+                        (
+                            jugador,
+                            index
+                        ) => {
 
                             let posicion;
 
 
-                            if (index === 0) {
+                            if (
+                                index === 0
+                            ) {
 
-                                posicion = "🥇";
+                                posicion =
+                                    "🥇";
 
                             }
                             else if (
                                 index === 1
                             ) {
 
-                                posicion = "🥈";
+                                posicion =
+                                    "🥈";
 
                             }
                             else if (
                                 index === 2
                             ) {
 
-                                posicion = "🥉";
+                                posicion =
+                                    "🥉";
 
                             }
                             else {
@@ -1310,7 +2174,8 @@ function cargarRanking() {
                             return `
 
                                 <div
-                                    class="ranking-jugador">
+                                    class="ranking-jugador"
+                                >
 
                                     <span>
 
@@ -1325,7 +2190,9 @@ function cargarRanking() {
 
                                     <strong>
 
-                                        ${jugador.puntos}
+                                        ${Number(
+                                            jugador.puntos
+                                        ) || 0}
                                         pts
 
                                     </strong>
@@ -1351,7 +2218,9 @@ function cargarRanking() {
 function escapeHTML(texto) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     div.textContent =
@@ -1361,4 +2230,38 @@ function escapeHTML(texto) {
 
 
     return div.innerHTML;
+
+}
+
+
+// ==========================================
+// INICIO
+// ==========================================
+
+if (menu) {
+
+    menu.style.display =
+        "block";
+
+}
+
+if (configuracion) {
+
+    configuracion.style.display =
+        "none";
+
+}
+
+if (quiz) {
+
+    quiz.style.display =
+        "none";
+
+}
+
+if (ranking) {
+
+    ranking.style.display =
+        "none";
+
 }
